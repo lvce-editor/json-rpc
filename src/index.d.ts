@@ -24,3 +24,11 @@ export const handleJsonRpcMessage: (
   logError: (error: any) => void,
   requiresSocket: (method: string) => void,
 ) => Promise<void>
+
+export const getErrorResponse: (
+  message: any,
+  error: any,
+  ipc: any,
+  preparePrettyError: any,
+  logError: any,
+) => any
