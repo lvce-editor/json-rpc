@@ -20,7 +20,7 @@ export const handleJsonRpcMessage: (
   message: any,
   execute: (method: string, ...params: any[]) => Promise<any>,
   resolve: any,
-  preparePrettyError: (error: any) => Promise<any>,
+  preparePrettyError: (error: any) => any,
   logError: (error: any) => void,
   requiresSocket: (method: string) => void,
 ) => Promise<void>
