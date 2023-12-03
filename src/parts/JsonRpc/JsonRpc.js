@@ -22,3 +22,5 @@ export const invokeAndTransfer = async (ipc, handle, method, ...params) => {
   const result = UnwrapJsonRpcResult.unwrapJsonRpcResult(responseMessage)
   return result
 }
+
+export { resolve } from '../Callback/Callback.js'
