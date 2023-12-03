@@ -24,3 +24,4 @@ export const invokeAndTransfer = async (ipc, handle, method, ...params) => {
 }
 
 export { resolve } from '../Callback/Callback.js'
+export { handleJsonRpcMessage } from '../HandleJsonRpcMessage/HandleJsonRpcMessage.js'
