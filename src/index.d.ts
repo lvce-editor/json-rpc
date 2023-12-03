@@ -32,3 +32,5 @@ export const getErrorResponse: (
   preparePrettyError: any,
   logError: any,
 ) => any
+
+export const getSuccessResponse: (message: any, result: any) => any
