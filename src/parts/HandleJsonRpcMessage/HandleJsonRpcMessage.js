@@ -45,6 +45,7 @@ export const handleJsonRpcMessage = async (
       execute,
       preparePrettyError,
       logError,
+      requiresSocket,
     )
     return
   }
