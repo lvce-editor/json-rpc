@@ -34,3 +34,10 @@ export const getErrorResponse: (
 ) => any
 
 export const getSuccessResponse: (message: any, result: any) => any
+
+export const JsonRpcEvent: {
+  create: (method: string, params: any) => any
+}
+export const JsonRequest: {
+  create: (method: string, params: any) => any
+}
