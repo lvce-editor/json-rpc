@@ -27,7 +27,9 @@ test('restoreJsonRpcError - TypeError object', () => {
     type: 'TypeError',
   })
   expect(error).toBeInstanceOf(TypeError)
-  expect(error.message).toBe(`Cannot set properties of undefined (setting 'id')`)
+  expect(error.message).toBe(
+    `Cannot set properties of undefined (setting 'id')`,
+  )
 })
 
 test('restoreJsonRpcError - SyntaxError', () => {
@@ -86,18 +88,21 @@ test('restoreJsonRpcError - DOMException', () => {
 
 test('restoreJsonRpcError - with stack', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    message: 'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
+    message:
+      'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
     stack: `Error: expected selector .Viewlet.Editor to have text "test3" but was "test"
     at Object.checkSingleElementCondition [as TestFrameWork.checkSingleElementCondition] (http://localhost/packages/renderer-process/src/parts/TestFrameWork/TestFrameWork.js:122:9)
     at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)`,
   })
   expect(error).toBeInstanceOf(Error)
-  expect(error.message).toBe(`Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"`)
+  expect(error.message).toBe(
+    `Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"`,
+  )
   expect(error.stack).toMatch(
     `Error: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"
     at Object.checkSingleElementCondition [as TestFrameWork.checkSingleElementCondition] (http://localhost/packages/renderer-process/src/parts/TestFrameWork/TestFrameWork.js:122:9)
     at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)
-    at constructError`,
+    at Module.constructError`,
   )
 })
 
@@ -136,7 +141,8 @@ test('restoreJsonRpcError - with stack in data property', () => {
 
 test('restoreJsonRpcError - ExecError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    message: 'Failed to execute test-source-control: process exited with code 128',
+    message:
+      'Failed to execute test-source-control: process exited with code 128',
     name: 'ExecError',
     stack: `ExecError: Failed to execute test-source-control: process exited with code 128
     at Api.api.exec (test://packages/extension-host-worker/src/parts/ExtensionHostMockExec/ExtensionHostMockExec.js:13:15)
@@ -147,7 +153,9 @@ test('restoreJsonRpcError - ExecError', () => {
     type: 'ExecError',
   })
   expect(error).toBeInstanceOf(Error)
-  expect(error.message).toBe(`Failed to execute test-source-control: process exited with code 128`)
+  expect(error.message).toBe(
+    `Failed to execute test-source-control: process exited with code 128`,
+  )
   expect(error.stack).toMatch(
     `ExecError: Failed to execute test-source-control: process exited with code 128
     at Api.api.exec (test://packages/extension-host-worker/src/parts/ExtensionHostMockExec/ExtensionHostMockExec.js:13:15)
@@ -161,7 +169,8 @@ test('restoreJsonRpcError - ExecError', () => {
 
 test('restoreJsonRpcError - VError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    message: 'Failed to execute tab completion provider: VError: invalid tab completion result: tabCompletion must be of type object but is 42',
+    message:
+      'Failed to execute tab completion provider: VError: invalid tab completion result: tabCompletion must be of type object but is 42',
     stack: `VError: invalid tab completion result: tabCompletion must be of type object but is 42
     at executeTabCompletionProvider (test://packages/extension-host-worker/src/parts/Registry/Registry.js:77:17)
     at async Module.getResponse (test://packages/extension-host-worker/src/parts/GetResponse/GetResponse.js:7:20)
@@ -201,7 +210,9 @@ test.skip('restoreJsonRpcError - with only one line in stack', async () => {
       }
     }),
   }
-  const error = await getError(JsonRpc.invoke(ipc, 'Test.execute', 'test message'))
+  const error = await getError(
+    JsonRpc.invoke(ipc, 'Test.execute', 'test message'),
+  )
   expect(error).toBeInstanceOf(DOMException)
   expect(error.message).toBe('The user aborted a request.')
   expect(error.stack).toMatch(
@@ -228,8 +239,12 @@ test('restoreJsonRpcError - error without stack', () => {
     message: "FileNotFoundError: File not found '0.8510013488176322'",
   })
   expect(error).toBeInstanceOf(Error)
-  expect(error.message).toBe("FileNotFoundError: File not found '0.8510013488176322'")
-  expect(error.stack).toMatch(`FileNotFoundError: File not found '0.8510013488176322'`)
+  expect(error.message).toBe(
+    "FileNotFoundError: File not found '0.8510013488176322'",
+  )
+  expect(error.stack).toMatch(
+    `FileNotFoundError: File not found '0.8510013488176322'`,
+  )
   expect(error.name).toBe('Error')
 })
 
@@ -242,9 +257,12 @@ test('restoreJsonRpcError - error with code', () => {
     },
   })
   expect(error).toBeInstanceOf(Error)
-  expect(error.message).toBe("FileNotFoundError: File not found '/test/settings.json'")
-  expect(error.stack).toMatch(`Error: FileNotFoundError: File not found '/test/settings.json'
-    at constructError`)
+  expect(error.message).toBe(
+    "FileNotFoundError: File not found '/test/settings.json'",
+  )
+  expect(error.stack)
+    .toMatch(`Error: FileNotFoundError: File not found '/test/settings.json'
+    at Module.constructError`)
   // @ts-ignore
   expect(error.code).toBe(ErrorCodes.ENOENT)
 })
@@ -297,7 +315,8 @@ test('restoreJsonRpcError - AssertionError', () => {
   })
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe('expected value to be of type string')
-  expect(error.stack).toMatch(`AssertionError: expected value to be of type string
+  expect(error.stack)
+    .toMatch(`AssertionError: expected value to be of type string
     at Object.getColorThemeJson [as ExtensionHost.getColorThemeJson] (file:///test/packages/shared-process/src/parts/ExtensionManagement/ExtensionManagementColorTheme.js:32:10)
     at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:68:33)
     at async getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
@@ -307,7 +326,8 @@ test('restoreJsonRpcError - AssertionError', () => {
 
 test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    message: 'Failed to execute completion provider: ReferenceError: vscode is not defined',
+    message:
+      'Failed to execute completion provider: ReferenceError: vscode is not defined',
     stack: `    at getTsPosition (/test/language-features-typescript/packages/node/src/parts/Position/Position.js:4:20)
     at getCompletion (/test/language-features-typescript/packages/node/src/parts/Completion/Completion.js:61:31)
     at execute (/test/language-features-typescript/packages/node/src/parts/Command/Command.js:7:10)
@@ -337,7 +357,9 @@ test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
     type: ErrorType.ReferenceError,
   })
   expect(error).toBeInstanceOf(ReferenceError)
-  expect(error.message).toBe('Failed to execute completion provider: ReferenceError: vscode is not defined')
+  expect(error.message).toBe(
+    'Failed to execute completion provider: ReferenceError: vscode is not defined',
+  )
   // @ts-ignore
   expect(error.codeFrame).toBe(`  2 |
   3 | export const getTsPosition = (textDocument, offset) => {
@@ -346,7 +368,8 @@ test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
   5 |   return {
   6 |     line: position.rowIndex + 1,
   7 |     offset: position.columnIndex + 1,`)
-  expect(error.stack).toMatch(`    at getTsPosition (/test/language-features-typescript/packages/node/src/parts/Position/Position.js:4:20)
+  expect(error.stack)
+    .toMatch(`    at getTsPosition (/test/language-features-typescript/packages/node/src/parts/Position/Position.js:4:20)
     at getCompletion (/test/language-features-typescript/packages/node/src/parts/Completion/Completion.js:61:31)
     at execute (/test/language-features-typescript/packages/node/src/parts/Command/Command.js:7:10)
     at getResponse (/test/lvce-editor/packages/extension-host-helper-process/src/parts/GetResponse/GetResponse.js:6:26)
@@ -383,10 +406,13 @@ test('restoreJsonRpcError - command not found error', () => {
     type: 'Error',
   })
   expect(error).toBeInstanceOf(Error)
-  expect(error.message).toBe('command HandleNodeMessagePort.handleNodeMessagePort not found')
+  expect(error.message).toBe(
+    'command HandleNodeMessagePort.handleNodeMessagePort not found',
+  )
   // @ts-ignore
   expect(error.codeFrame).toBeUndefined()
-  expect(error.stack).toMatch(`command HandleNodeMessagePort.handleNodeMessagePort not found
+  expect(error.stack)
+    .toMatch(`command HandleNodeMessagePort.handleNodeMessagePort not found
     at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:66:11)
     at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:10:9)
     at async handleJsonRpcMessage (file:///test/packages/shared-process/src/parts/HandleIpc/HandleIpc.js:12:24)
@@ -396,7 +422,7 @@ test('restoreJsonRpcError - command not found error', () => {
     at async connectToIpcNodeWorker (/test/packages/main-process/src/parts/ConnectIpc/ConnectIpc.js:20:3)
     at async handlePort (/test/packages/main-process/src/parts/HandleMessagePortForSharedProcess/HandleMessagePortForSharedProcess.js:48:3)
     at async handlePort (/test/packages/main-process/src/parts/HandleMessagePort/HandleMessagePort.js:44:5)
-    at constructError`)
+    at Module.constructError`)
 })
 
 test('restoreJsonRpcError - message string', () => {
@@ -427,8 +453,11 @@ test('restoreJsonRpcError - TextSearchError', () => {
       code: 'E_RIP_GREP_NOT_FOUND',
     },
   })
-  expect(error.message).toBe('ripgrep path not found: Error: spawn /test/bin/rg ENOENT')
-  expect(error.stack).toMatch(`TextSearchError: ripgrep path not found: Error: spawn /test/bin/rg ENOENT
+  expect(error.message).toBe(
+    'ripgrep path not found: Error: spawn /test/bin/rg ENOENT',
+  )
+  expect(error.stack)
+    .toMatch(`TextSearchError: ripgrep path not found: Error: spawn /test/bin/rg ENOENT
     at TextSearch.search (/test/packages/shared-process/src/parts/TextSearch/TextSearch.js:124:11)`)
   expect(error.name).toBe('TextSearchError')
 })
@@ -441,8 +470,11 @@ test('restoreJsonRpcError - bulk replacement error', async () => {
       code: 'ENOENT',
     },
   })
-  expect(error.message).toBe("VError: Bulk replacement failed: File not found: './test.txt'")
-  expect(error.stack).toMatch(`Error: VError: Bulk replacement failed: File not found: './test.txt'
-    at constructError `)
+  expect(error.message).toBe(
+    "VError: Bulk replacement failed: File not found: './test.txt'",
+  )
+  expect(error.stack)
+    .toMatch(`Error: VError: Bulk replacement failed: File not found: './test.txt'
+    at Module.constructError `)
   expect(error.name).toBe('Error')
 })

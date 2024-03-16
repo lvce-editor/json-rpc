@@ -1,25 +1,10 @@
-import * as GetErrorConstructor from '../GetErrorConstructor/GetErrorConstructor.js'
+import * as Character from '../Character/Character.js'
+import * as ConstructError from '../ConstructError/ConstructError.js'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.js'
 import * as JoinLines from '../JoinLines/JoinLines.js'
 import { JsonRpcError } from '../JsonRpcError/JsonRpcError.js'
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.js'
 import * as SplitLines from '../SplitLines/SplitLines.js'
-import * as Character from '../Character/Character.js'
-
-const constructError = (message, type, name) => {
-  const ErrorConstructor = GetErrorConstructor.getErrorConstructor(message, type)
-  if (ErrorConstructor === DOMException && name) {
-    return new ErrorConstructor(message, name)
-  }
-  if (ErrorConstructor === Error) {
-    const error = new Error(message)
-    if (name && name !== 'VError') {
-      error.name = name
-    }
-    return error
-  }
-  return new ErrorConstructor(message)
-}
 
 const getParentStack = (error) => {
   let parentStack = error.stack || error.data || error.message || ''
@@ -41,7 +26,7 @@ export const restoreJsonRpcError = (error) => {
     return restoredError
   }
   if (error && error.message) {
-    const restoredError = constructError(error.message, error.type, error.name)
+    const restoredError = ConstructError. constructError(error.message, error.type, error.name)
     if (error.data) {
       if (error.data.stack && error.data.type && error.message) {
         restoredError.stack = error.data.type + ': ' + error.message + Character.NewLine + error.data.stack + Character.NewLine + currentStack
