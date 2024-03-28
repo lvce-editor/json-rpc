@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { expect, jest, test } from '@jest/globals'
 import * as ErrorCodes from '../src/parts/ErrorCodes/ErrorCodes.js'
 import * as ErrorType from '../src/parts/ErrorType/ErrorType.js'

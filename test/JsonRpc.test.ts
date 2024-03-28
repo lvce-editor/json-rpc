@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { jest, test, expect } from '@jest/globals'
 import * as Callback from '../src/parts/Callback/Callback.js'
 import { JsonRpcError } from '../src/parts/JsonRpcError/JsonRpcError.js'
