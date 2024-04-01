@@ -1,1 +1,1 @@
-export * from './parts/JsonRpc/JsonRpc.js'
+export * from './parts/JsonRpc/JsonRpc.ts'

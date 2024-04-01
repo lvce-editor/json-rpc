@@ -1,8 +1,8 @@
 import * as Assert from '../Assert/Assert.ts'
-import * as CallbackState from '../CallbackState/CallbackState.js'
-import * as Id from '../Id/Id.js'
-import * as Logger from '../Logger/Logger.js'
-import * as Promises from '../Promises/Promises.js'
+import * as CallbackState from '../CallbackState/CallbackState.ts'
+import * as Id from '../Id/Id.ts'
+import * as Logger from '../Logger/Logger.ts'
+import * as Promises from '../Promises/Promises.ts'
 
 export const registerPromise = () => {
   const id = Id.create()
