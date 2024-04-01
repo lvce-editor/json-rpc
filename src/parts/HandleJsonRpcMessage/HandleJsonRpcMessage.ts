@@ -1,5 +1,5 @@
-import * as GetErrorResponse from '../GetErrorResponse/GetErrorResponse.js'
-import * as GetResponse from '../GetResponse/GetResponse.js'
+import * as GetErrorResponse from '../GetErrorResponse/GetErrorResponse.ts'
+import * as GetResponse from '../GetResponse/GetResponse.ts'
 import { JsonRpcError } from '../JsonRpcError/JsonRpcError.js'
 
 export const handleJsonRpcMessage = async (

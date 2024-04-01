@@ -1,6 +1,6 @@
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.js'
 import * as JsonRpcErrorResponse from '../JsonRpcErrorResponse/JsonRpcErrorResponse.js'
-import * as ErrorCodes from '../ErrorCodes/ErrorCodes.js'
+import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
 
 const getErrorProperty = (error, prettyError) => {
   if (error && error.code === ErrorCodes.E_COMMAND_NOT_FOUND) {

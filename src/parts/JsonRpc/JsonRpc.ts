@@ -23,9 +23,9 @@ export const invokeAndTransfer = async (ipc, handle, method, ...params) => {
   return result
 }
 
-export { resolve } from '../Callback/Callback.js'
-export { handleJsonRpcMessage } from '../HandleJsonRpcMessage/HandleJsonRpcMessage.js'
-export { getErrorResponse } from '../GetErrorResponse/GetErrorResponse.js'
-export { getSuccessResponse } from '../GetSuccessResponse/GetSuccessResponse.js'
+export { resolve } from '../Callback/Callback.ts'
+export { handleJsonRpcMessage } from '../HandleJsonRpcMessage/HandleJsonRpcMessage.ts'
+export { getErrorResponse } from '../GetErrorResponse/GetErrorResponse.ts'
+export { getSuccessResponse } from '../GetSuccessResponse/GetSuccessResponse.ts'
 export { JsonRpcEvent }
 export { JsonRpcRequest }
