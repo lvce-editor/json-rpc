@@ -7,17 +7,18 @@ import * as Promises from '../Promises/Promises.ts'
 export const registerPromise = () => {
   const id = Id.create()
   const { resolve, promise } = Promises.withResolvers()
-  CallbackState.state.callbacks[id] = resolve
+  CallbackState.set(id, resolve)
   return { id, promise }
 }
 
 export const resolve = (id: number, args: any) => {
   Assert.number(id)
-  if (!(id in CallbackState.state.callbacks)) {
+  const fn = CallbackState.get(id)
+  if (!fn) {
     console.log(args)
     Logger.warn(`callback ${id} may already be disposed`)
     return
   }
-  CallbackState.state.callbacks[id](args)
-  delete CallbackState.state.callbacks[id]
+  fn(args)
+  CallbackState.remove(id)
 }
