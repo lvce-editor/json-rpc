@@ -1,10 +1,10 @@
-import * as Character from '../Character/Character.js'
-import * as ConstructError from '../ConstructError/ConstructError.js'
-import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.js'
-import * as JoinLines from '../JoinLines/JoinLines.js'
-import { JsonRpcError } from '../JsonRpcError/JsonRpcError.js'
-import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.js'
-import * as SplitLines from '../SplitLines/SplitLines.js'
+import * as Character from '../Character/Character.ts'
+import * as ConstructError from '../ConstructError/ConstructError.ts'
+import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
+import * as JoinLines from '../JoinLines/JoinLines.ts'
+import { JsonRpcError } from '../JsonRpcError/JsonRpcError.ts'
+import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
+import * as SplitLines from '../SplitLines/SplitLines.ts'
 
 const getParentStack = (error) => {
   let parentStack = error.stack || error.data || error.message || ''
@@ -18,7 +18,9 @@ export const restoreJsonRpcError = (error) => {
   if (error && error instanceof Error) {
     return error
   }
-  const currentStack = JoinLines.joinLines(SplitLines.splitLines(new Error().stack).slice(1))
+  const currentStack = JoinLines.joinLines(
+    SplitLines.splitLines(new Error().stack).slice(1),
+  )
   if (error && error.code && error.code === JsonRpcErrorCode.MethodNotFound) {
     const restoredError = new JsonRpcError(error.message)
     const parentStack = getParentStack(error)
@@ -26,10 +28,21 @@ export const restoreJsonRpcError = (error) => {
     return restoredError
   }
   if (error && error.message) {
-    const restoredError = ConstructError. constructError(error.message, error.type, error.name)
+    const restoredError = ConstructError.constructError(
+      error.message,
+      error.type,
+      error.name,
+    )
     if (error.data) {
       if (error.data.stack && error.data.type && error.message) {
-        restoredError.stack = error.data.type + ': ' + error.message + Character.NewLine + error.data.stack + Character.NewLine + currentStack
+        restoredError.stack =
+          error.data.type +
+          ': ' +
+          error.message +
+          Character.NewLine +
+          error.data.stack +
+          Character.NewLine +
+          currentStack
       } else if (error.data.stack) {
         restoredError.stack = error.data.stack
       }

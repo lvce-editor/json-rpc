@@ -1,6 +1,6 @@
-import * as JsonRpcEvent from '../JsonRpcEvent/JsonRpcEvent.js'
-import * as JsonRpcRequest from '../JsonRpcRequest/JsonRpcRequest.js'
-import * as UnwrapJsonRpcResult from '../UnwrapJsonRpcResult/UnwrapJsonRpcResult.js'
+import * as JsonRpcEvent from '../JsonRpcEvent/JsonRpcEvent.ts'
+import * as JsonRpcRequest from '../JsonRpcRequest/JsonRpcRequest.ts'
+import * as UnwrapJsonRpcResult from '../UnwrapJsonRpcResult/UnwrapJsonRpcResult.ts'
 
 export const send = (transport, method, ...params) => {
   const message = JsonRpcEvent.create(method, params)
@@ -23,9 +23,9 @@ export const invokeAndTransfer = async (ipc, handle, method, ...params) => {
   return result
 }
 
-export { resolve } from '../Callback/Callback.js'
-export { handleJsonRpcMessage } from '../HandleJsonRpcMessage/HandleJsonRpcMessage.js'
-export { getErrorResponse } from '../GetErrorResponse/GetErrorResponse.js'
-export { getSuccessResponse } from '../GetSuccessResponse/GetSuccessResponse.js'
+export { resolve } from '../Callback/Callback.ts'
+export { handleJsonRpcMessage } from '../HandleJsonRpcMessage/HandleJsonRpcMessage.ts'
+export { getErrorResponse } from '../GetErrorResponse/GetErrorResponse.ts'
+export { getSuccessResponse } from '../GetSuccessResponse/GetSuccessResponse.ts'
 export { JsonRpcEvent }
 export { JsonRpcRequest }
