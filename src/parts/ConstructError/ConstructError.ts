@@ -1,7 +1,11 @@
 import * as GetErrorConstructor from '../GetErrorConstructor/GetErrorConstructor.js'
 
 export const constructError = (message, type, name) => {
-  const ErrorConstructor = GetErrorConstructor.getErrorConstructor(message, type)
+  const ErrorConstructor = GetErrorConstructor.getErrorConstructor(
+    message,
+    type,
+  )
+  // @ts-ignore
   if (ErrorConstructor === DOMException && name) {
     return new ErrorConstructor(message, name)
   }
