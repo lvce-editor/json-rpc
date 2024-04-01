@@ -1,8 +1,15 @@
-import * as Assert from '../Assert/Assert.ts'
-import * as Id from '../Id/Id.ts'
-import * as Logger from '../Logger/Logger.ts'
-import * as Promises from '../Promises/Promises.ts'
-
-export const state = {
+const state = {
   callbacks: Object.create(null),
+}
+
+export const set = (id, fn) => {
+  state.callbacks[id] = fn
+}
+
+export const get = (id) => {
+  return state.callbacks[id]
+}
+
+export const remove = (id) => {
+  delete state.callbacks[id]
 }
