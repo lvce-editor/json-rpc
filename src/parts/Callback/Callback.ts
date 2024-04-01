@@ -11,7 +11,7 @@ export const registerPromise = () => {
   return { id, promise }
 }
 
-export const resolve = (id, args) => {
+export const resolve = (id: number, args: any) => {
   Assert.number(id)
   const fn = CallbackState.get(id)
   if (!fn) {

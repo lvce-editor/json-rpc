@@ -1,6 +1,6 @@
 import * as GetErrorConstructor from '../GetErrorConstructor/GetErrorConstructor.ts'
 
-export const constructError = (message, type, name) => {
+export const constructError = (message: string, type: string, name: string) => {
   const ErrorConstructor = GetErrorConstructor.getErrorConstructor(
     message,
     type,
