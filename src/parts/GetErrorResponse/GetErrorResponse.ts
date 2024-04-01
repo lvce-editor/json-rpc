@@ -2,7 +2,7 @@ import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
 import * as JsonRpcErrorResponse from '../JsonRpcErrorResponse/JsonRpcErrorResponse.ts'
 import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
 
-const getErrorProperty = (error, prettyError) => {
+const getErrorProperty = (error: any, prettyError: any) => {
   if (error && error.code === ErrorCodes.E_COMMAND_NOT_FOUND) {
     return {
       code: JsonRpcErrorCode.MethodNotFound,
@@ -23,11 +23,11 @@ const getErrorProperty = (error, prettyError) => {
 }
 
 export const getErrorResponse = (
-  message,
-  error,
-  ipc,
-  preparePrettyError,
-  logError,
+  message: any,
+  error: any,
+  ipc: any,
+  preparePrettyError: any,
+  logError: any,
 ) => {
   const prettyError = preparePrettyError(error)
   logError(error, prettyError)

@@ -6,7 +6,7 @@ import { JsonRpcError } from '../JsonRpcError/JsonRpcError.ts'
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
 import * as SplitLines from '../SplitLines/SplitLines.ts'
 
-const getParentStack = (error) => {
+const getParentStack = (error: any) => {
   let parentStack = error.stack || error.data || error.message || ''
   if (parentStack.startsWith('    at')) {
     parentStack = error.message + Character.NewLine + parentStack
@@ -14,12 +14,12 @@ const getParentStack = (error) => {
   return parentStack
 }
 
-export const restoreJsonRpcError = (error) => {
+export const restoreJsonRpcError = (error: any) => {
   if (error && error instanceof Error) {
     return error
   }
   const currentStack = JoinLines.joinLines(
-    SplitLines.splitLines(new Error().stack).slice(1),
+    SplitLines.splitLines(new Error().stack!).slice(1),
   )
   if (error && error.code && error.code === JsonRpcErrorCode.MethodNotFound) {
     const restoredError = new JsonRpcError(error.message)

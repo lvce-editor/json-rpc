@@ -1,6 +1,6 @@
 import * as ErrorType from '../ErrorType/ErrorType.ts'
 
-export const getErrorConstructor = (message, type) => {
+export const getErrorConstructor = (message: string, type: string) => {
   if (type) {
     switch (type) {
       case ErrorType.DomException:

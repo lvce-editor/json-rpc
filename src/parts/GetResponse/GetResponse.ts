@@ -2,12 +2,12 @@ import * as GetErrorResponse from '../GetErrorResponse/GetErrorResponse.ts'
 import * as GetSuccessResponse from '../GetSuccessResponse/GetSuccessResponse.ts'
 
 export const getResponse = async (
-  message,
-  ipc,
-  execute,
-  preparePrettyError,
-  logError,
-  requiresSocket,
+  message: any,
+  ipc: any,
+  execute: any,
+  preparePrettyError: any,
+  logError: any,
+  requiresSocket: any,
 ) => {
   try {
     const result = requiresSocket(message.method)
