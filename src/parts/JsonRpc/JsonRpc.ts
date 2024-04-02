@@ -28,7 +28,7 @@ export const invokeAndTransfer = async (
   return result
 }
 
-export { resolve } from '../Callback/Callback.ts'
+export { resolve, registerPromise } from '../Callback/Callback.ts'
 export { handleJsonRpcMessage } from '../HandleJsonRpcMessage/HandleJsonRpcMessage.ts'
 export { getErrorResponse } from '../GetErrorResponse/GetErrorResponse.ts'
 export { getSuccessResponse } from '../GetSuccessResponse/GetSuccessResponse.ts'
