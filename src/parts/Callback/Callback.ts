@@ -6,7 +6,7 @@ import * as Promises from '../Promises/Promises.ts'
 
 export const registerPromise = () => {
   const id = Id.create()
-  const { resolve, promise } = Promises.withResolvers()
+  const { resolve, promise } = Promise.withResolvers()
   CallbackState.set(id, resolve)
   return { id, promise }
 }
