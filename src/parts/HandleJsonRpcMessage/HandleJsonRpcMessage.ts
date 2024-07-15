@@ -27,7 +27,6 @@ export const handleJsonRpcMessage = async (
         const errorResponse = GetErrorResponse.getErrorResponse(
           message,
           error,
-          ipc,
           preparePrettyError,
           logError,
         )

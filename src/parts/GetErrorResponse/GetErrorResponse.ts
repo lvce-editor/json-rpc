@@ -25,7 +25,6 @@ const getErrorProperty = (error: any, prettyError: any) => {
 export const getErrorResponse = (
   message: any,
   error: any,
-  ipc: any,
   preparePrettyError: any,
   logError: any,
 ) => {
