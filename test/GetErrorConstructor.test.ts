@@ -1,4 +1,4 @@
-import { jest, test, expect } from '@jest/globals'
+import { expect, test } from '@jest/globals'
 import * as GetErrorConstructor from '../src/parts/GetErrorConstructor/GetErrorConstructor.js'
 
 test('type - DOMException', () => {
