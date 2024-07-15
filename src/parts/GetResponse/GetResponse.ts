@@ -18,7 +18,6 @@ export const getResponse = async (
     return GetErrorResponse.getErrorResponse(
       message,
       error,
-      ipc,
       preparePrettyError,
       logError,
     )

@@ -1,5 +1,4 @@
-import { expect, test, beforeEach, jest } from '@jest/globals'
-import * as Callback from '../src/parts/Callback/Callback.js'
+import { expect, test } from '@jest/globals'
 import * as UnwrapJsonRpcResult from '../src/parts/UnwrapJsonRpcResult/UnwrapJsonRpcResult.js'
 
 test('unwrapJsonRpcResult - error', () => {
