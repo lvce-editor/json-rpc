@@ -13,3 +13,7 @@ export const get = (id: number) => {
 export const remove = (id: number) => {
   delete state.callbacks[id]
 }
+
+export const clear = () => {
+  state.callbacks = Object.create(null)
+}
