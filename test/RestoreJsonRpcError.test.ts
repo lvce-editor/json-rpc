@@ -10,6 +10,12 @@ test('restoreJsonRpcError - string', () => {
   expect(error.message).toBe('JsonRpc Error: something went wrong')
 })
 
+test('restoreJsonRpcError - error', () => {
+  const error = new Error('x is not a function')
+  const restoredError = RestoreJsonRpcError.restoreJsonRpcError(error)
+  expect(restoredError).toBe(error)
+})
+
 test('restoreJsonRpcError - TypeError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     type: ErrorType.TypeError,
