@@ -15,15 +15,37 @@ export const invokeAndTransfer: (
 
 export const resolve: (id: number, message: any) => void
 
-export const handleJsonRpcMessage: (
-  ipc: any,
-  message: any,
-  execute: (method: string, ...params: any[]) => Promise<any>,
-  resolve: any,
-  preparePrettyError: (error: any) => any,
-  logError: (error: any) => void,
-  requiresSocket: (method: string) => void,
-) => Promise<void>
+interface HandleJsonRpcMessage {
+  (
+    ipc: any,
+    message: any,
+    execute: (method: string, ...params: any[]) => Promise<any>,
+    resolve: any,
+    preparePrettyError: (error: any) => any,
+    logError: (error: any) => void,
+    requiresSocket: (method: string) => void,
+  ): Promise<void>
+
+  ({
+    ipc,
+    message,
+    execute,
+    resolve,
+    preparePrettyError,
+    logError,
+    requiresSocket,
+  }: {
+    ipc: any
+    message: any
+    execute: (method: string, ...params: any[]) => Promise<any>
+    resolve?: any
+    preparePrettyError: (error: any) => any
+    logError: (error: any) => void
+    requiresSocket: (method: string) => void
+  }): Promise<void>
+}
+
+export const handleJsonRpcMessage: HandleJsonRpcMessage
 
 export const getErrorResponse: (
   message: any,
