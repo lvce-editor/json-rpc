@@ -5,7 +5,7 @@ const MessagePort = class {}
 
 beforeAll(() => {
   // @ts-ignore
-  globalThis.MessagePortMain = MessagePort
+  globalThis.MessagePort = MessagePort
 })
 
 test('null', () => {
