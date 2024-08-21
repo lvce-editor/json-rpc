@@ -6,12 +6,12 @@ export const invoke: (
   ...params: any[]
 ) => Promise<any>
 
-export const invokeAndTransfer: (
-  ipc: any,
-  transfer: any,
-  method: string,
-  ...params: any[]
-) => Promise<any>
+interface InvokeAndTransfer {
+  (ipc: any, transfer: any, method: string, ...params: any[]): Promise<any>
+  (ipc: any, method: string, ...params: any[]): Promise<any>
+}
+
+export const invokeAndTransfer: InvokeAndTransfer
 
 export const resolve: (id: number, message: any) => void
 
