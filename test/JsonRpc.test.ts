@@ -419,3 +419,65 @@ test('invoke - result is of type number', async () => {
     params: ['test message'],
   })
 })
+
+test('invokeAndTransfer', async () => {
+  const ipc = {
+    sendAndTransfer: jest.fn((message, transfer) => {
+      // @ts-ignore
+      if (message.method === 'Test.execute') {
+        // @ts-ignore
+        Callback.resolve(message.id, {
+          result: 0,
+        })
+      } else {
+        throw new Error('unexpected message')
+      }
+    }),
+  }
+  class Socket {}
+  const socket = new Socket()
+  expect(await JsonRpc.invokeAndTransfer(ipc, socket, 'Test.execute')).toEqual(
+    0,
+  )
+  expect(ipc.sendAndTransfer).toHaveBeenCalledTimes(1)
+  expect(ipc.sendAndTransfer).toHaveBeenCalledWith(
+    {
+      jsonrpc: JsonRpcVersion.Two,
+      id: expect.any(Number),
+      method: 'Test.execute',
+      params: [],
+    },
+    socket,
+  )
+})
+
+test('invokeAndTransfer - automatic transferrable detection', async () => {
+  const ipc = {
+    sendAndTransfer: jest.fn((message, transfer) => {
+      // @ts-ignore
+      if (message.method === 'Test.execute') {
+        // @ts-ignore
+        Callback.resolve(message.id, {
+          result: 0,
+        })
+      } else {
+        throw new Error('unexpected message')
+      }
+    }),
+  }
+  class Socket {}
+  const socket = new Socket()
+  expect(await JsonRpc.invokeAndTransfer(ipc, 'Test.execute', socket)).toEqual(
+    0,
+  )
+  expect(ipc.sendAndTransfer).toHaveBeenCalledTimes(1)
+  expect(ipc.sendAndTransfer).toHaveBeenCalledWith(
+    {
+      jsonrpc: JsonRpcVersion.Two,
+      id: expect.any(Number),
+      method: 'Test.execute',
+      params: [socket],
+    },
+    socket,
+  )
+})
