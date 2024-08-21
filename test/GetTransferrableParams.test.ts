@@ -32,8 +32,14 @@ test('socket', () => {
   expect(GetTransferrableParams.getTransferrableParams(value)).toBe(value)
 })
 
-test('array of sockets', () => {
+test('array with socket', () => {
   class Socket {}
-  const value = [new Socket(), new Socket()]
-  expect(GetTransferrableParams.getTransferrableParams(value)).toEqual(value)
+  const socket = new Socket()
+  const value = [socket]
+  expect(GetTransferrableParams.getTransferrableParams(value)).toBe(socket)
+})
+
+test('empty array', () => {
+  const value = [] as const
+  expect(GetTransferrableParams.getTransferrableParams(value)).toBe(undefined)
 })

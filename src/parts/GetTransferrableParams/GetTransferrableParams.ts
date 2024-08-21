@@ -1,3 +1,4 @@
+import * as IsSingleTransferrable from '../IsSingleTransferrable/IsSingleTransferrable.ts'
 import * as IsTransferrable from '../IsTransferrable/IsTransferrable.ts'
 
 export const getTransferrableParams = (value: unknown): unknown | undefined => {
@@ -5,7 +6,17 @@ export const getTransferrableParams = (value: unknown): unknown | undefined => {
     return value
   }
   if (Array.isArray(value)) {
-    return value.filter(IsTransferrable.isTransferrable)
+    const result = value.filter(IsTransferrable.isTransferrable)
+    if (result.length === 0) {
+      return undefined
+    }
+    if (
+      result.length === 1 &&
+      IsSingleTransferrable.isSingleTransferrable(result[0])
+    ) {
+      return result[0]
+    }
+    return result
   }
   return undefined
 }
