@@ -1,3 +1,5 @@
+import * as IsInstanceOf from '../IsInstanceOf/IsInstanceOf.ts'
+
 export const isMessagePortMain = (value: unknown) => {
-  return value?.constructor?.name === 'MessagePortMain'
+  return IsInstanceOf.isInstanceOf(value, 'MessagePortMain')
 }
