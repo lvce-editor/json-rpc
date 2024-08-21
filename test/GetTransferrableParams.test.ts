@@ -31,3 +31,9 @@ test('socket', () => {
   const value = new Socket()
   expect(GetTransferrableParams.getTransferrableParams(value)).toBe(value)
 })
+
+test('array of sockets', () => {
+  class Socket {}
+  const value = [new Socket(), new Socket()]
+  expect(GetTransferrableParams.getTransferrableParams(value)).toEqual(value)
+})
