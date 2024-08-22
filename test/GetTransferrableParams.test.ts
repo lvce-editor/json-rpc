@@ -58,3 +58,9 @@ test('object with port', () => {
   }
   expect(GetTransferrableParams.getTransferrableParams(value)).toEqual([port])
 })
+
+test('nested array with port', () => {
+  const port = new MessagePort()
+  const value = [[port]]
+  expect(GetTransferrableParams.getTransferrableParams(value)).toEqual([port])
+})
