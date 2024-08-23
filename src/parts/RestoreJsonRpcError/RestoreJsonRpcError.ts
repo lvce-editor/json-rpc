@@ -1,18 +1,11 @@
 import * as Character from '../Character/Character.ts'
 import * as ConstructError from '../ConstructError/ConstructError.ts'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
+import * as GetParentStack from '../GetParentStack/GetParentStack.ts'
 import * as JoinLines from '../JoinLines/JoinLines.ts'
 import { JsonRpcError } from '../JsonRpcError/JsonRpcError.ts'
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
 import * as SplitLines from '../SplitLines/SplitLines.ts'
-
-const getParentStack = (error: any) => {
-  let parentStack = error.stack || error.data || error.message || ''
-  if (parentStack.startsWith('    at')) {
-    parentStack = error.message + Character.NewLine + parentStack
-  }
-  return parentStack
-}
 
 export const restoreJsonRpcError = (error: any) => {
   if (error && error instanceof Error) {
@@ -23,7 +16,7 @@ export const restoreJsonRpcError = (error: any) => {
   )
   if (error && error.code && error.code === JsonRpcErrorCode.MethodNotFound) {
     const restoredError = new JsonRpcError(error.message)
-    const parentStack = getParentStack(error)
+    const parentStack = GetParentStack.getParentStack(error)
     restoredError.stack = parentStack + Character.NewLine + currentStack
     return restoredError
   }
@@ -64,7 +57,7 @@ export const restoreJsonRpcError = (error: any) => {
         const lowerStack = restoredError.stack || ''
         // @ts-ignore
         const indexNewLine = GetNewLineIndex.getNewLineIndex(lowerStack)
-        const parentStack = getParentStack(error)
+        const parentStack = GetParentStack.getParentStack(error)
         // @ts-ignore
         restoredError.stack = parentStack + lowerStack.slice(indexNewLine)
       }
