@@ -107,3 +107,41 @@ test('error when sending message', async () => {
     jsonrpc: '2.0',
   })
 })
+
+test('function call without response', async () => {
+  const ipc = {
+    send: jest.fn(() => {}),
+  }
+  const message = {
+    method: 'abc',
+    params: [],
+  }
+  const resolve = jest.fn()
+  const execute = jest.fn()
+  const preparePrettyError = jest.fn((error) => {
+    return {
+      code: undefined,
+      codeFrame: '',
+      // @ts-ignore
+      message: error.message,
+      // @ts-ignore
+      name: error.constructor.name,
+      // @ts-ignore
+      stack: error.stack,
+      // @ts-ignore
+      type: error.constructor.name,
+    }
+  })
+  const logError = jest.fn()
+  const requiresSocket = jest.fn()
+  await HandleJsonRpcMessage.handleJsonRpcMessage(
+    ipc,
+    message,
+    execute,
+    resolve,
+    preparePrettyError,
+    logError,
+    requiresSocket,
+  )
+  expect(ipc.send).not.toBeCalled()
+})
