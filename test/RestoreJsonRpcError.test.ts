@@ -1,7 +1,8 @@
-// @ts-nocheck
-import { expect, jest, test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
 import * as ErrorCodes from '../src/parts/ErrorCodes/ErrorCodes.js'
 import * as ErrorType from '../src/parts/ErrorType/ErrorType.js'
+import { JsonRpcError } from '../src/parts/JsonRpcError/JsonRpcError.ts'
+import * as JsonRpcErrorCode from '../src/parts/JsonRpcErrorCode/JsonRpcErrorCode.js'
 import * as RestoreJsonRpcError from '../src/parts/RestoreJsonRpcError/RestoreJsonRpcError.js'
 
 test('restoreJsonRpcError - string', () => {
@@ -63,22 +64,22 @@ test('restoreJsonRpcError - null', () => {
   expect(error.message).toBe('JsonRpc Error: null')
 })
 
-test('restoreJsonRpcError - empty object', async () => {
+test('restoreJsonRpcError - empty object', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({})
   expect(error.message).toBe(`JsonRpc Error: [object Object]`)
 })
 
-test('restoreJsonRpcError - empty array', async () => {
+test('restoreJsonRpcError - empty array', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError([])
   expect(error.message).toBe(`JsonRpc Error: `)
 })
 
-test('restoreJsonRpcError - empty weakmap', async () => {
+test('restoreJsonRpcError - empty weakmap', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError(new WeakMap())
   expect(error.message).toBe(`JsonRpc Error: [object WeakMap]`)
 })
 
-test('restoreJsonRpcError - empty set', async () => {
+test('restoreJsonRpcError - empty set', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError(new Set())
   expect(error.message).toBe(`JsonRpc Error: [object Set]`)
 })
@@ -199,28 +200,13 @@ test('restoreJsonRpcError - VError', () => {
   expect(error.name).toBe('Error')
 })
 
-test.skip('restoreJsonRpcError - with only one line in stack', async () => {
-  const ipc = {
-    send: jest.fn((message) => {
-      // @ts-ignore
-      if (message.method === 'Test.execute') {
-        // @ts-ignore
-        Callback.resolve(message.id, {
-          error: {
-            message: 'The user aborted a request.',
-            name: 'AbortError',
-            stack: 'Error: The user aborted a request.',
-            type: 'DOMException',
-          },
-        })
-      } else {
-        throw new Error('unexpected message')
-      }
-    }),
-  }
-  const error = await getError(
-    JsonRpc.invoke(ipc, 'Test.execute', 'test message'),
-  )
+test.skip('restoreJsonRpcError - with only one line in stack', () => {
+  const error = RestoreJsonRpcError.restoreJsonRpcError({
+    message: 'The user aborted a request.',
+    name: 'AbortError',
+    stack: 'Error: The user aborted a request.',
+    type: 'DOMException',
+  })
   expect(error).toBeInstanceOf(DOMException)
   expect(error.message).toBe('The user aborted a request.')
   expect(error.stack).toMatch(
@@ -231,7 +217,7 @@ test.skip('restoreJsonRpcError - with only one line in stack', async () => {
   )
 })
 
-test.skip('restoreJsonRpcError - method not found', async () => {
+test('restoreJsonRpcError - method not found', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     message: 'method not found',
     code: JsonRpcErrorCode.MethodNotFound,
@@ -470,7 +456,7 @@ test('restoreJsonRpcError - TextSearchError', () => {
   expect(error.name).toBe('TextSearchError')
 })
 
-test('restoreJsonRpcError - bulk replacement error', async () => {
+test('restoreJsonRpcError - bulk replacement error', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     code: -32001,
     message: "VError: Bulk replacement failed: File not found: './test.txt'",
