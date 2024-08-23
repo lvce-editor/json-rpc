@@ -1,7 +1,7 @@
 import { jest, test, expect } from '@jest/globals'
 import * as HandleJsonRpcMessage from '../src/parts/HandleJsonRpcMessage/HandleJsonRpcMessage.js'
 
-test('resolve', () => {
+test('resolve', async () => {
   const ipc = {}
   const message = {
     id: 1,
@@ -12,7 +12,7 @@ test('resolve', () => {
   const preparePrettyError = jest.fn()
   const logError = jest.fn()
   const requiresSocket = jest.fn()
-  HandleJsonRpcMessage.handleJsonRpcMessage(
+  await HandleJsonRpcMessage.handleJsonRpcMessage(
     ipc,
     message,
     execute,
@@ -25,7 +25,7 @@ test('resolve', () => {
   expect(resolve).toHaveBeenCalledWith(1, message)
 })
 
-test('resolve - new api', () => {
+test('resolve - new api', async () => {
   const ipc = {}
   const message = {
     id: 1,
@@ -36,7 +36,7 @@ test('resolve - new api', () => {
   const preparePrettyError = jest.fn()
   const logError = jest.fn()
   const requiresSocket = jest.fn()
-  HandleJsonRpcMessage.handleJsonRpcMessage({
+  await HandleJsonRpcMessage.handleJsonRpcMessage({
     ipc,
     message,
     execute,
@@ -47,6 +47,33 @@ test('resolve - new api', () => {
   })
   expect(resolve).toHaveBeenCalledTimes(1)
   expect(resolve).toHaveBeenCalledWith(1, message)
+})
+
+test('invoke - new api - with fallback', async () => {
+  const ipc = {
+    send: jest.fn(() => {}),
+  }
+  const message = {
+    id: 1,
+    method: 'a',
+    params: [],
+  }
+  const resolve = jest.fn()
+  const execute = jest.fn(() => {
+    return 2
+  })
+  await HandleJsonRpcMessage.handleJsonRpcMessage({
+    ipc,
+    message,
+    execute,
+    resolve,
+  })
+  expect(ipc.send).toHaveBeenCalledTimes(1)
+  expect(ipc.send).toBeCalledWith({
+    id: 1,
+    jsonrpc: '2.0',
+    result: 2,
+  })
 })
 
 test('unexpected message', async () => {
