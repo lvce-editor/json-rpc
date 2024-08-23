@@ -5,7 +5,6 @@ export const constructError = (message: string, type: string, name: string) => {
     message,
     type,
   )
-  // @ts-ignore
   if (ErrorConstructor === DOMException && name) {
     return new ErrorConstructor(message, name)
   }
