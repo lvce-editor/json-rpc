@@ -25,6 +25,30 @@ test('resolve', () => {
   expect(resolve).toHaveBeenCalledWith(1, message)
 })
 
+test('resolve - new api', () => {
+  const ipc = {}
+  const message = {
+    id: 1,
+    result: 2,
+  }
+  const resolve = jest.fn()
+  const execute = jest.fn()
+  const preparePrettyError = jest.fn()
+  const logError = jest.fn()
+  const requiresSocket = jest.fn()
+  HandleJsonRpcMessage.handleJsonRpcMessage({
+    ipc,
+    message,
+    execute,
+    resolve,
+    preparePrettyError,
+    logError,
+    requiresSocket,
+  })
+  expect(resolve).toHaveBeenCalledTimes(1)
+  expect(resolve).toHaveBeenCalledWith(1, message)
+})
+
 test('unexpected message', async () => {
   const ipc = {}
   const message = {}
