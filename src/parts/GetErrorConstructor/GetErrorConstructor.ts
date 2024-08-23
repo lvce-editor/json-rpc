@@ -4,7 +4,6 @@ export const getErrorConstructor = (message: string, type: string) => {
   if (type) {
     switch (type) {
       case ErrorType.DomException:
-        // @ts-ignore
         return DOMException
       case ErrorType.TypeError:
         return TypeError

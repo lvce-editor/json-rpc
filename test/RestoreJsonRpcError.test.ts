@@ -1,9 +1,15 @@
-import { expect, test } from '@jest/globals'
+import { beforeEach, expect, test } from '@jest/globals'
 import * as ErrorCodes from '../src/parts/ErrorCodes/ErrorCodes.js'
 import * as ErrorType from '../src/parts/ErrorType/ErrorType.js'
 import { JsonRpcError } from '../src/parts/JsonRpcError/JsonRpcError.ts'
 import * as JsonRpcErrorCode from '../src/parts/JsonRpcErrorCode/JsonRpcErrorCode.js'
 import * as RestoreJsonRpcError from '../src/parts/RestoreJsonRpcError/RestoreJsonRpcError.js'
+
+const originalError = Error
+
+beforeEach(() => {
+  globalThis.Error = originalError
+})
 
 test('restoreJsonRpcError - string', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError('something went wrong')
@@ -113,6 +119,35 @@ test('restoreJsonRpcError - with stack', () => {
     at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)
     at Module.constructError`,
   )
+})
+
+test('restoreJsonRpcError - with stack - but restored error has no stack', () => {
+  // @ts-ignore
+  globalThis.Error = class {
+    constructor(message: string) {
+      // @ts-ignore
+      this.message = message
+      // @ts-ignore
+      this.stack = null
+    }
+  }
+  const error = RestoreJsonRpcError.restoreJsonRpcError({
+    message:
+      'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
+    stack: `Error: expected selector .Viewlet.Editor to have text "test3" but was "test"
+    at Object.checkSingleElementCondition [as TestFrameWork.checkSingleElementCondition] (http://localhost/packages/renderer-process/src/parts/TestFrameWork/TestFrameWork.js:122:9)
+    at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)`,
+  })
+  expect(error).toBeInstanceOf(Error)
+  expect(error.message).toBe(
+    'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
+  )
+  expect(error.stack).toMatch(
+    `Error: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"
+    at Object.checkSingleElementCondition [as TestFrameWork.checkSingleElementCondition] (http://localhost/packages/renderer-process/src/parts/TestFrameWork/TestFrameWork.js:122:9)
+    at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)`,
+  )
+  globalThis.Error = originalError
 })
 
 test('restoreJsonRpcError - with stack in data property', () => {

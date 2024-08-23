@@ -1,6 +1,10 @@
 import * as GetErrorConstructor from '../GetErrorConstructor/GetErrorConstructor.ts'
 
-export const constructError = (message: string, type: string, name: string) => {
+export const constructError = (
+  message: string,
+  type: string,
+  name: string,
+): Error | DOMException => {
   const ErrorConstructor = GetErrorConstructor.getErrorConstructor(
     message,
     type,
