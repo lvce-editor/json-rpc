@@ -58,7 +58,6 @@ test('invoke - new api - with fallback', async () => {
     method: 'a',
     params: [],
   }
-  const resolve = jest.fn()
   const execute = jest.fn(() => {
     return 2
   })
@@ -66,7 +65,6 @@ test('invoke - new api - with fallback', async () => {
     ipc,
     message,
     execute,
-    resolve,
   })
   expect(ipc.send).toHaveBeenCalledTimes(1)
   expect(ipc.send).toBeCalledWith({
@@ -152,41 +150,6 @@ test('error when sending message', async () => {
         codeFrame: '',
         stack: expect.stringMatching('TypeError: x is not a function'),
         type: 'TypeError',
-      },
-    },
-    id: 1,
-    jsonrpc: '2.0',
-  })
-})
-
-test('new api - error', async () => {
-  const ipc = {
-    send: jest.fn(() => {}),
-  }
-  const message = {
-    id: 1,
-    method: 'abc',
-    params: [],
-  }
-  const resolve = jest.fn()
-  const execute = jest.fn(() => {
-    throw new TypeError(`x is not a function`)
-  })
-  await HandleJsonRpcMessage.handleJsonRpcMessage({
-    ipc,
-    message,
-    execute,
-    resolve,
-  })
-  expect(ipc.send).toHaveBeenCalledTimes(1)
-  expect(ipc.send).toHaveBeenNthCalledWith(1, {
-    error: {
-      code: -32001,
-      message: 'x is not a function',
-      data: {
-        codeFrame: undefined,
-        stack: expect.stringMatching('TypeError: x is not a function'),
-        type: undefined,
       },
     },
     id: 1,
