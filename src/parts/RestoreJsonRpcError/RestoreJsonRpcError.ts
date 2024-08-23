@@ -12,7 +12,7 @@ export const restoreJsonRpcError = (error: any) => {
     return error
   }
   const currentStack = JoinLines.joinLines(
-    SplitLines.splitLines(new Error().stack!).slice(1),
+    SplitLines.splitLines(new Error().stack || '').slice(1),
   )
   if (error && error.code && error.code === JsonRpcErrorCode.MethodNotFound) {
     const restoredError = new JsonRpcError(error.message)
