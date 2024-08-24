@@ -440,15 +440,12 @@ test('invokeAndTransfer', async () => {
     0,
   )
   expect(ipc.sendAndTransfer).toHaveBeenCalledTimes(1)
-  expect(ipc.sendAndTransfer).toHaveBeenCalledWith(
-    {
-      jsonrpc: JsonRpcVersion.Two,
-      id: expect.any(Number),
-      method: 'Test.execute',
-      params: [],
-    },
-    socket,
-  )
+  expect(ipc.sendAndTransfer).toHaveBeenCalledWith({
+    jsonrpc: JsonRpcVersion.Two,
+    id: expect.any(Number),
+    method: 'Test.execute',
+    params: [],
+  })
 })
 
 test('invokeAndTransfer - automatic transferrable detection', async () => {
@@ -471,13 +468,10 @@ test('invokeAndTransfer - automatic transferrable detection', async () => {
     0,
   )
   expect(ipc.sendAndTransfer).toHaveBeenCalledTimes(1)
-  expect(ipc.sendAndTransfer).toHaveBeenCalledWith(
-    {
-      jsonrpc: JsonRpcVersion.Two,
-      id: expect.any(Number),
-      method: 'Test.execute',
-      params: [socket],
-    },
-    socket,
-  )
+  expect(ipc.sendAndTransfer).toHaveBeenCalledWith({
+    jsonrpc: JsonRpcVersion.Two,
+    id: expect.any(Number),
+    method: 'Test.execute',
+    params: [socket],
+  })
 })
