@@ -17,7 +17,8 @@
     "allowImportingTsExtensions": true,
     "rootDir": ".",
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src", "test"]
 }
