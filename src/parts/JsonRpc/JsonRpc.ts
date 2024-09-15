@@ -15,18 +15,11 @@ export const invoke = async (ipc: any, method: string, ...params: any[]) => {
   return result
 }
 
-// TODO deprecated old typings,
-// always use automatic transferrable detection
 export const invokeAndTransfer = async (
   ipc: any,
-  handle: any,
   method: any,
   ...params: any[]
 ) => {
-  if (typeof handle === 'string') {
-    params = [method, ...params]
-    method = handle
-  }
   const { message, promise } = JsonRpcRequest.create(method, params)
   ipc.sendAndTransfer(message)
   const responseMessage = await promise
