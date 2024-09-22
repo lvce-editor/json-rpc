@@ -150,6 +150,7 @@ test('error when sending message', async () => {
         codeFrame: '',
         stack: expect.stringMatching('TypeError: x is not a function'),
         type: 'TypeError',
+        name: 'TypeError',
       },
     },
     id: 1,
@@ -184,7 +185,8 @@ test('new api - error', async () => {
       data: {
         codeFrame: undefined,
         stack: expect.stringMatching('TypeError: x is not a function'),
-        type: undefined,
+        type: 'TypeError',
+        name: 'TypeError',
       },
     },
     id: 1,
