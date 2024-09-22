@@ -21,3 +21,19 @@ test('DOMException - SecurityError', () => {
     message: `Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.`,
   })
 })
+
+test('error without type property', () => {
+  const error = null
+  const prettyError = {
+    message: `Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.`,
+  }
+  expect(GetErrorProperty.getErrorProperty(error, prettyError)).toEqual({
+    code: -32001,
+    data: {
+      codeFrame: undefined,
+      stack: undefined,
+      type: 'Object',
+    },
+    message: `Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.`,
+  })
+})
