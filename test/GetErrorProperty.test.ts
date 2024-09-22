@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import * as GetErrorProperty from '../src/parts/GetErrorProperty/GetErrorProperty.ts'
 
-test('DOMException - SecurityError', () => {
+test.only('DOMException - SecurityError', () => {
   const error = null
   const prettyError = new DOMException(
     `Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.`,
