@@ -101,6 +101,20 @@ test('restoreJsonRpcError - DOMException', () => {
   expect(error.message).toBe(`The user aborted a request.`)
 })
 
+test('restoreJsonRpcError - DOMException - SecurityError', () => {
+  const error = RestoreJsonRpcError.restoreJsonRpcError({
+    type: ErrorType.DomException,
+    name: 'SecurityError',
+    message:
+      "Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin \"http://localhost:3000\" from accessing a cross-origin frame.",
+  })
+  expect(error).toBeInstanceOf(DOMException)
+  expect(error.name).toBe('SecurityError')
+  expect(error.message).toBe(
+    "Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin \"http://localhost:3000\" from accessing a cross-origin frame.",
+  )
+})
+
 test('restoreJsonRpcError - with stack', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     message:
