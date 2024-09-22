@@ -24,15 +24,14 @@ test('DOMException - SecurityError', () => {
 
 test('error without type property', () => {
   const error = null
-  const prettyError = {
-    message: `Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.`,
-  }
+  const prettyError = Object.create(null)
+  prettyError.message = `Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.`
   expect(GetErrorProperty.getErrorProperty(error, prettyError)).toEqual({
     code: -32001,
     data: {
       codeFrame: undefined,
       stack: undefined,
-      type: 'Object',
+      type: undefined,
     },
     message: `Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.`,
   })
