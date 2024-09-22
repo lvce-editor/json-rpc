@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import * as GetErrorProperty from '../src/parts/GetErrorProperty/GetErrorProperty.js'
+import * as GetErrorProperty from '../src/parts/GetErrorProperty/GetErrorProperty.ts'
 
 test('DOMException - SecurityError', () => {
   const error = null
