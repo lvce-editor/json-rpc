@@ -184,7 +184,7 @@ test('new api - error', async () => {
       data: {
         codeFrame: undefined,
         stack: expect.stringMatching('TypeError: x is not a function'),
-        type: undefined,
+        type: 'TypeError',
       },
     },
     id: 1,
