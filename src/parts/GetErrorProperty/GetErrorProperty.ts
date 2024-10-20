@@ -1,15 +1,6 @@
 import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
+import * as GetErrorType from '../GetErrorType/GetErrorType.ts'
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
-
-const getType = (prettyError: any) => {
-  if (prettyError && prettyError.type) {
-    return prettyError.type
-  }
-  if (prettyError && prettyError.constructor && prettyError.constructor.name) {
-    return prettyError.constructor.name
-  }
-  return undefined
-}
 
 export const getErrorProperty = (error: any, prettyError: any) => {
   if (error && error.code === ErrorCodes.E_COMMAND_NOT_FOUND) {
@@ -25,7 +16,7 @@ export const getErrorProperty = (error: any, prettyError: any) => {
     data: {
       stack: prettyError.stack,
       codeFrame: prettyError.codeFrame,
-      type: getType(prettyError),
+      type: GetErrorType.getErrorType(prettyError),
       code: prettyError.code,
       name: prettyError.name,
     },
