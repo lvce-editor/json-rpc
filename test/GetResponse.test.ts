@@ -70,14 +70,14 @@ test('getResponse - error', async () => {
     params: [],
   }
   const ipc = {}
-  const execute = () => {
+  const execute = (): void => {
     throw new TypeError(`x is not a function`)
   }
-  const preparePrettyError = (error: Error) => {
+  const preparePrettyError = (error: Error): Error => {
     return error
   }
-  const logError = () => {}
-  const requiresSocket = () => {
+  const logError = (): void => {}
+  const requiresSocket = (): boolean => {
     return false
   }
   expect(
