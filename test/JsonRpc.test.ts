@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { jest, test, expect } from '@jest/globals'
 import * as Callback from '../src/parts/Callback/Callback.js'
 import { JsonRpcError } from '../src/parts/JsonRpcError/JsonRpcError.js'
@@ -8,12 +7,7 @@ import * as JsonRpcVersion from '../src/parts/JsonRpcVersion/JsonRpcVersion.js'
 
 class NoErrorThrownError extends Error {}
 
-/**
- *
- * @param {any} promise
- * @returns {Promise<Error>}
- *  */
-const getError = async (promise) => {
+const getError = async (promise: Promise<unknown>): Promise<Error> => {
   try {
     await promise
     throw new NoErrorThrownError()
@@ -422,7 +416,7 @@ test('invoke - result is of type number', async () => {
 
 test('invokeAndTransfer - automatic transferrable detection', async () => {
   const ipc = {
-    sendAndTransfer: jest.fn((message, transfer) => {
+    sendAndTransfer: jest.fn((message) => {
       // @ts-ignore
       if (message.method === 'Test.execute') {
         // @ts-ignore
