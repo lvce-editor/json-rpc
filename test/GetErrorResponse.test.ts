@@ -11,7 +11,7 @@ test('getErrorResponse', () => {
   }
   const message = 'Command not found'
   const error = new CommandNotFoundError(message)
-  const preparePrettyError = (error: any) => {
+  const preparePrettyError = (error: any): any => {
     return error
   }
   const logError = (): void => {}

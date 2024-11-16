@@ -3,15 +3,15 @@ import * as GetErrorResponse from '../GetErrorResponse/GetErrorResponse.ts'
 import * as GetResponse from '../GetResponse/GetResponse.ts'
 import { JsonRpcError } from '../JsonRpcError/JsonRpcError.ts'
 
-const defaultPreparePrettyError = (error: any) => {
+const defaultPreparePrettyError = (error: any): any => {
   return error
 }
 
-const defaultLogError = () => {
+const defaultLogError = (): void => {
   // ignore
 }
 
-const defaultRequiresSocket = () => {
+const defaultRequiresSocket = (): boolean => {
   return false
 }
 
