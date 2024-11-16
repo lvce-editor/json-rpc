@@ -1,38 +1,47 @@
 import * as JsonRpcEvent from '../JsonRpcEvent/JsonRpcEvent.ts'
 import * as JsonRpcRequest from '../JsonRpcRequest/JsonRpcRequest.ts'
 import * as UnwrapJsonRpcResult from '../UnwrapJsonRpcResult/UnwrapJsonRpcResult.ts'
+import type { IpcConnection } from '../JsonRpcTypes/JsonRpcTypes.ts'
+
+const invokeHelper = async <T>(
+  ipc: IpcConnection,
+  method: string,
+  params: readonly unknown[],
+  useSendAndTransfer: boolean,
+): Promise<T> => {
+  const { message, promise } = JsonRpcRequest.create<T>(method, params)
+  if (useSendAndTransfer && ipc.sendAndTransfer) {
+    ipc.sendAndTransfer(message)
+  } else {
+    ipc.send(message)
+  }
+  const responseMessage = await promise
+  return UnwrapJsonRpcResult.unwrapJsonRpcResult<T>(responseMessage)
+}
 
 export const send = (
-  transport: any,
+  transport: IpcConnection,
   method: string,
-  ...params: readonly any[]
+  ...params: readonly unknown[]
 ): void => {
   const message = JsonRpcEvent.create(method, params)
   transport.send(message)
 }
 
-export const invoke = async (
-  ipc: any,
+export const invoke = <T>(
+  ipc: IpcConnection,
   method: string,
-  ...params: readonly any[]
-): Promise<any> => {
-  const { message, promise } = JsonRpcRequest.create(method, params)
-  ipc.send(message)
-  const responseMessage = await promise
-  const result = UnwrapJsonRpcResult.unwrapJsonRpcResult(responseMessage)
-  return result
+  ...params: readonly unknown[]
+): Promise<T> => {
+  return invokeHelper<T>(ipc, method, params, false)
 }
 
-export const invokeAndTransfer = async (
-  ipc: any,
-  method: any,
-  ...params: readonly any[]
-): Promise<any> => {
-  const { message, promise } = JsonRpcRequest.create(method, params)
-  ipc.sendAndTransfer(message)
-  const responseMessage = await promise
-  const result = UnwrapJsonRpcResult.unwrapJsonRpcResult(responseMessage)
-  return result
+export const invokeAndTransfer = <T>(
+  ipc: IpcConnection,
+  method: string,
+  ...params: readonly unknown[]
+): Promise<T> => {
+  return invokeHelper<T>(ipc, method, params, true)
 }
 
 export { registerPromise, resolve } from '../Callback/Callback.ts'
