@@ -8,12 +8,12 @@ test('getResponse - success', async () => {
     params: [],
   }
   const ipc = {}
-  const execute = () => {
+  const execute = (): number => {
     return 0
   }
-  const preparePrettyError = () => {}
-  const logError = () => {}
-  const requiresSocket = () => {
+  const preparePrettyError = (): void => {}
+  const logError = (): void => {}
+  const requiresSocket = (): boolean => {
     return false
   }
   expect(
@@ -39,12 +39,12 @@ test('getResponse - success - requires ipc', async () => {
     params: [],
   }
   const ipc = {}
-  const execute = () => {
+  const execute = (): number => {
     return 0
   }
-  const preparePrettyError = () => {}
-  const logError = () => {}
-  const requiresSocket = () => {
+  const preparePrettyError = (): void => {}
+  const logError = (): void => {}
+  const requiresSocket = (): boolean => {
     return true
   }
   expect(
