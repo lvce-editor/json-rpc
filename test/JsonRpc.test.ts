@@ -23,7 +23,7 @@ const getError = async (promise) => {
   }
 }
 
-test('send', async () => {
+test('send', () => {
   const mockTransport = {
     send: jest.fn(),
   }

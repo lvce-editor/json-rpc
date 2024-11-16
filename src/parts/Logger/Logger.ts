@@ -1,3 +1,3 @@
-export const warn = (...args: any[]) => {
+export const warn = (...args: any[]): void => {
   console.warn(...args)
 }
