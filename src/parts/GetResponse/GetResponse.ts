@@ -8,7 +8,7 @@ export const getResponse = async (
   preparePrettyError: any,
   logError: any,
   requiresSocket: any,
-) => {
+): any => {
   try {
     const result = requiresSocket(message.method)
       ? await execute(message.method, ipc, ...message.params)

@@ -6,7 +6,7 @@ export const getErrorResponse = (
   error: any,
   preparePrettyError: any,
   logError: any,
-) => {
+): any => {
   const prettyError = preparePrettyError(error)
   logError(error, prettyError)
   const errorProperty = GetErrorProperty.getErrorProperty(error, prettyError)
