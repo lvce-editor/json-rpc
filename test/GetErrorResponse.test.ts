@@ -14,7 +14,7 @@ test('getErrorResponse', () => {
   const preparePrettyError = (error: any) => {
     return error
   }
-  const logError = () => {}
+  const logError = (): void => {}
   expect(
     GetErrorResponse.getErrorResponse(
       message,

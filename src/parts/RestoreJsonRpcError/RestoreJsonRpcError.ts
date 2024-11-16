@@ -7,7 +7,7 @@ import { JsonRpcError } from '../JsonRpcError/JsonRpcError.ts'
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
 import * as SplitLines from '../SplitLines/SplitLines.ts'
 
-export const restoreJsonRpcError = (error: any) => {
+export const restoreJsonRpcError = (error: any): any => {
   if (error && error instanceof Error) {
     return error
   }
