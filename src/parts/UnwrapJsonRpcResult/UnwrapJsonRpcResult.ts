@@ -1,7 +1,7 @@
 import { JsonRpcError } from '../JsonRpcError/JsonRpcError.ts'
 import * as RestoreJsonRpcError from '../RestoreJsonRpcError/RestoreJsonRpcError.ts'
 
-export const unwrapJsonRpcResult = (responseMessage: any): any => {
+export const unwrapJsonRpcResult = <T = unknown>(responseMessage: any): T => {
   if ('error' in responseMessage) {
     const restoredError = RestoreJsonRpcError.restoreJsonRpcError(
       responseMessage.error,

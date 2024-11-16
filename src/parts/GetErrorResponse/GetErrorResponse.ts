@@ -3,9 +3,9 @@ import * as JsonRpcErrorResponse from '../JsonRpcErrorResponse/JsonRpcErrorRespo
 
 export const getErrorResponse = (
   message: any,
-  error: any,
-  preparePrettyError: any,
-  logError: any,
+  error: unknown,
+  preparePrettyError: (error: unknown) => unknown,
+  logError: (error: unknown, prettyError: unknown) => void,
 ): any => {
   const prettyError = preparePrettyError(error)
   logError(error, prettyError)

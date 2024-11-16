@@ -1,14 +1,9 @@
 import * as JsonRpcVersion from '../JsonRpcVersion/JsonRpcVersion.ts'
-
-interface JsonRpcEvent {
-  readonly jsonrpc: string
-  readonly method: string
-  readonly params: readonly any[]
-}
+import type { JsonRpcEvent } from '../JsonRpcTypes/JsonRpcTypes.ts'
 
 export const create = (
   method: string,
-  params: readonly any[],
+  params: readonly unknown[],
 ): JsonRpcEvent => {
   return {
     jsonrpc: JsonRpcVersion.Two,
