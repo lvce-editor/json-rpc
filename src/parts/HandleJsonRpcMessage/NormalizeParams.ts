@@ -34,9 +34,9 @@ export const normalizeParams = (args: any[]): any => {
     ipc: args[0],
     message: args[1],
     execute: args[2],
-    resolve: args[3] || defaultResolve,
-    preparePrettyError: args[4] || defaultPreparePrettyError,
-    logError: args[5] || defaultLogError,
-    requiresSocket: args[6] || defaultRequiresSocket,
+    resolve: args[3],
+    preparePrettyError: args[4],
+    logError: args[5],
+    requiresSocket: args[6],
   }
 }
