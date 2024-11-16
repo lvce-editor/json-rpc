@@ -416,6 +416,7 @@ test('invoke - result is of type number', async () => {
 
 test('invokeAndTransfer - automatic transferrable detection', async () => {
   const ipc = {
+    send(): void {},
     sendAndTransfer: jest.fn((message) => {
       // @ts-ignore
       if (message.method === 'Test.execute') {
