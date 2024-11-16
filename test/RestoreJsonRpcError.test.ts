@@ -43,7 +43,7 @@ test('restoreJsonRpcError - TypeError object', () => {
   })
   expect(error).toBeInstanceOf(TypeError)
   expect(error.message).toBe(
-    `Cannot set properties of undefined (setting 'id')`,
+    "Cannot set properties of undefined (setting 'id')",
   )
 })
 
@@ -72,22 +72,22 @@ test('restoreJsonRpcError - null', () => {
 
 test('restoreJsonRpcError - empty object', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({})
-  expect(error.message).toBe(`JsonRpc Error: [object Object]`)
+  expect(error.message).toBe('JsonRpc Error: [object Object]')
 })
 
 test('restoreJsonRpcError - empty array', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError([])
-  expect(error.message).toBe(`JsonRpc Error: `)
+  expect(error.message).toBe('JsonRpc Error: ')
 })
 
 test('restoreJsonRpcError - empty weakmap', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError(new WeakMap())
-  expect(error.message).toBe(`JsonRpc Error: [object WeakMap]`)
+  expect(error.message).toBe('JsonRpc Error: [object WeakMap]')
 })
 
 test('restoreJsonRpcError - empty set', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError(new Set())
-  expect(error.message).toBe(`JsonRpc Error: [object Set]`)
+  expect(error.message).toBe('JsonRpc Error: [object Set]')
 })
 
 test('restoreJsonRpcError - DOMException', () => {
@@ -98,7 +98,7 @@ test('restoreJsonRpcError - DOMException', () => {
   })
   expect(error).toBeInstanceOf(DOMException)
   expect(error.name).toBe('AbortError')
-  expect(error.message).toBe(`The user aborted a request.`)
+  expect(error.message).toBe('The user aborted a request.')
 })
 
 test('restoreJsonRpcError - DOMException - SecurityError', () => {
@@ -125,7 +125,7 @@ test('restoreJsonRpcError - with stack', () => {
   })
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe(
-    `Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"`,
+    'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
   )
   expect(error.stack).toMatch(
     `Error: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"
@@ -166,7 +166,7 @@ test('restoreJsonRpcError - with stack - but restored error has no stack', () =>
 
 test('restoreJsonRpcError - with stack in data property', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    code: -32001,
+    code: -32_001,
     message:
       'Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open \'/test/.config/app/settings.json\'',
     data: {
@@ -186,7 +186,7 @@ test('restoreJsonRpcError - with stack in data property', () => {
   })
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe(
-    `Failed to get all preferences: failed to get user preferences: Failed to read file \"/test/.config/app/settings.json\": EACCES: permission denied, open '/test/.config/app/settings.json'`,
+    'Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open \'/test/.config/app/settings.json\'',
   )
   expect(error.stack).toMatch(
     `Failed to get all preferences: failed to get user preferences: Failed to read file \"/test/.config/app/settings.json\": EACCES: permission denied, open '/test/.config/app/settings.json'
@@ -212,7 +212,7 @@ test('restoreJsonRpcError - ExecError', () => {
   })
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe(
-    `Failed to execute test-source-control: process exited with code 128`,
+    'Failed to execute test-source-control: process exited with code 128',
   )
   expect(error.stack).toMatch(
     `ExecError: Failed to execute test-source-control: process exited with code 128
@@ -276,7 +276,7 @@ test('restoreJsonRpcError - method not found', () => {
 
 test('restoreJsonRpcError - error without stack', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    code: -32001,
+    code: -32_001,
     message: "FileNotFoundError: File not found '0.8510013488176322'",
   })
   expect(error).toBeInstanceOf(Error)
@@ -284,14 +284,14 @@ test('restoreJsonRpcError - error without stack', () => {
     "FileNotFoundError: File not found '0.8510013488176322'",
   )
   expect(error.stack).toMatch(
-    `FileNotFoundError: File not found '0.8510013488176322'`,
+    "FileNotFoundError: File not found '0.8510013488176322'",
   )
   expect(error.name).toBe('Error')
 })
 
 test('restoreJsonRpcError - error with code', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    code: -32001,
+    code: -32_001,
     message: "FileNotFoundError: File not found '/test/settings.json'",
     data: {
       code: ErrorCodes.ENOENT,
@@ -313,7 +313,7 @@ test.skip('restoreJsonRpcError - object', () => {
     jsonrpc: '2.0',
     id: 7,
     error: {
-      code: -32001,
+      code: -32_001,
       message: 'expected value to be of type string',
       data: {
         stack: `    at Object.getColorThemeJson [as ExtensionHost.getColorThemeJson] (file:///test/packages/shared-process/src/parts/ExtensionManagement/ExtensionManagementColorTheme.js:32:10)
@@ -337,7 +337,7 @@ test.skip('restoreJsonRpcError - object', () => {
 
 test('restoreJsonRpcError - AssertionError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    code: -32001,
+    code: -32_001,
     message: 'expected value to be of type string',
     data: {
       stack: `    at Object.getColorThemeJson [as ExtensionHost.getColorThemeJson] (file:///test/packages/shared-process/src/parts/ExtensionManagement/ExtensionManagementColorTheme.js:32:10)
@@ -468,7 +468,7 @@ test('restoreJsonRpcError - command not found error', () => {
 
 test('restoreJsonRpcError - message string', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    code: -32601,
+    code: -32_601,
     message: "'Location.reload' wasn't found",
   })
   expect(error.message).toBe("'Location.reload' wasn't found")
@@ -478,7 +478,7 @@ test('restoreJsonRpcError - message string', () => {
 
 test('restoreJsonRpcError - TextSearchError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    code: -32001,
+    code: -32_001,
     message: 'ripgrep path not found: Error: spawn /test/bin/rg ENOENT',
     data: {
       stack: `    at TextSearch.search (/test/packages/shared-process/src/parts/TextSearch/TextSearch.js:124:11)
@@ -505,7 +505,7 @@ test('restoreJsonRpcError - TextSearchError', () => {
 
 test('restoreJsonRpcError - bulk replacement error', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    code: -32001,
+    code: -32_001,
     message: "VError: Bulk replacement failed: File not found: './test.txt'",
     data: {
       code: 'ENOENT',
