@@ -1,16 +1,12 @@
 import * as GetErrorProperty from '../GetErrorProperty/GetErrorProperty.ts'
 import * as JsonRpcErrorResponse from '../JsonRpcErrorResponse/JsonRpcErrorResponse.ts'
-import type {
-  IJsonRpcRequest,
-  IJsonRpcErrorResponse,
-} from '../JsonRpcTypes/JsonRpcTypes.ts'
 
 export const getErrorResponse = (
-  message: IJsonRpcRequest,
+  message: any,
   error: unknown,
   preparePrettyError: (error: unknown) => unknown,
   logError: (error: unknown, prettyError: unknown) => void,
-): IJsonRpcErrorResponse => {
+): any => {
   const prettyError = preparePrettyError(error)
   logError(error, prettyError)
   const errorProperty = GetErrorProperty.getErrorProperty(error, prettyError)
