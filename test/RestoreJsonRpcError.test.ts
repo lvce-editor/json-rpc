@@ -128,7 +128,7 @@ test('restoreJsonRpcError - with stack', () => {
     'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
   )
   expect(error.stack).toMatch(
-    `Error: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"
+    `Error: expected selector .Viewlet.Editor to have text "test3" but was "test"
     at Object.checkSingleElementCondition [as TestFrameWork.checkSingleElementCondition] (http://localhost/packages/renderer-process/src/parts/TestFrameWork/TestFrameWork.js:122:9)
     at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)
     at Module.constructError`,
@@ -157,7 +157,7 @@ test('restoreJsonRpcError - with stack - but restored error has no stack', () =>
     'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
   )
   expect(error.stack).toMatch(
-    `Error: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"
+    `Error: expected selector .Viewlet.Editor to have text "test3" but was "test"
     at Object.checkSingleElementCondition [as TestFrameWork.checkSingleElementCondition] (http://localhost/packages/renderer-process/src/parts/TestFrameWork/TestFrameWork.js:122:9)
     at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)`,
   )
@@ -170,7 +170,7 @@ test('restoreJsonRpcError - with stack in data property', () => {
     message:
       'Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open \'/test/.config/app/settings.json\'',
     data: {
-      stack: `Failed to get all preferences: failed to get user preferences: Failed to read file \"/test/.config/app/settings.json\": EACCES: permission denied, open '/test/.config/app/settings.json'
+      stack: `Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open '/test/.config/app/settings.json'
     at getUserPreferences (file:///test/packages/shared-process/src/parts/Preferences/Preferences.js:23:11)
     at async Object.getAll [as Preferences.getAll] (file:///test/packages/shared-process/src/parts/Preferences/Preferences.js:63:29)
     at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
@@ -189,7 +189,7 @@ test('restoreJsonRpcError - with stack in data property', () => {
     'Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open \'/test/.config/app/settings.json\'',
   )
   expect(error.stack).toMatch(
-    `Failed to get all preferences: failed to get user preferences: Failed to read file \"/test/.config/app/settings.json\": EACCES: permission denied, open '/test/.config/app/settings.json'
+    `Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open '/test/.config/app/settings.json'
     at getUserPreferences (file:///test/packages/shared-process/src/parts/Preferences/Preferences.js:23:11)
     at async Object.getAll [as Preferences.getAll] (file:///test/packages/shared-process/src/parts/Preferences/Preferences.js:63:29)
     at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)

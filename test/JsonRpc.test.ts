@@ -299,7 +299,7 @@ test('invoke - error - with stack', async () => {
     'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
   )
   expect(error.stack).toMatch(
-    `Error: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"
+    `Error: expected selector .Viewlet.Editor to have text "test3" but was "test"
     at Object.checkSingleElementCondition [as TestFrameWork.checkSingleElementCondition] (http://localhost/packages/renderer-process/src/parts/TestFrameWork/TestFrameWork.js:122:9)
     at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)
     at Module.constructError`,
@@ -331,7 +331,7 @@ test.skip('invoke - error - with only one line in stack', async () => {
   expect(error).toBeInstanceOf(DOMException)
   expect(error.message).toBe('The user aborted a request.')
   expect(error.stack).toMatch(
-    `Error: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"
+    `Error: expected selector .Viewlet.Editor to have text "test3" but was "test"
     at Object.checkSingleElementCondition [as TestFrameWork.checkSingleElementCondition] (http://localhost/packages/renderer-process/src/parts/TestFrameWork/TestFrameWork.js:122:9)
     at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)
     at constructError`,
