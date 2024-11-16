@@ -118,7 +118,7 @@ test('invoke - error - TypeError object', async () => {
   )
   expect(error).toBeInstanceOf(TypeError)
   expect(error.message).toBe(
-    `Cannot set properties of undefined (setting 'id')`,
+    "Cannot set properties of undefined (setting 'id')",
   )
   expect(ipc.send).toHaveBeenCalledTimes(1)
   expect(ipc.send).toHaveBeenCalledWith({
@@ -235,7 +235,7 @@ test('invoke - error - empty object', async () => {
   const error = await getError(
     JsonRpc.invoke(ipc, 'Test.execute', 'test message'),
   )
-  expect(error.message).toBe(`JsonRpc Error: [object Object]`)
+  expect(error.message).toBe('JsonRpc Error: [object Object]')
   expect(ipc.send).toHaveBeenCalledTimes(1)
   expect(ipc.send).toHaveBeenCalledWith({
     jsonrpc: JsonRpcVersion.Two,
@@ -268,7 +268,7 @@ test('invoke - error - DOMException', async () => {
   )
   expect(error).toBeInstanceOf(DOMException)
   expect(error.name).toBe('AbortError')
-  expect(error.message).toBe(`The user aborted a request.`)
+  expect(error.message).toBe('The user aborted a request.')
 })
 
 test('invoke - error - with stack', async () => {
@@ -296,7 +296,7 @@ test('invoke - error - with stack', async () => {
   )
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe(
-    `Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"`,
+    'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
   )
   expect(error.stack).toMatch(
     `Error: expected selector .Viewlet.Editor to have text \"test3\" but was \"test\"
