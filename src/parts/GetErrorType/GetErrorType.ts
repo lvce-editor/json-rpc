@@ -1,4 +1,4 @@
-export const getErrorType = (prettyError: any) => {
+export const getErrorType = (prettyError: any): string | undefined => {
   if (prettyError && prettyError.type) {
     return prettyError.type
   }
