@@ -17,7 +17,7 @@ const defaultRequiresSocket = () => {
 
 const defaultResolve = Callback.resolve
 
-export const handleJsonRpcMessage = async (...args: any[]) => {
+export const handleJsonRpcMessage = async (...args: any[]): Promise<void> => {
   let message
   let ipc
   let execute
