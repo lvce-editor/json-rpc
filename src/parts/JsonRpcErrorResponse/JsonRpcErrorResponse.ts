@@ -1,15 +1,17 @@
 import * as JsonRpcVersion from '../JsonRpcVersion/JsonRpcVersion.ts'
+import type {
+  IJsonRpcErrorResponse,
+  JsonRpcError,
+  IJsonRpcRequest,
+} from '../JsonRpcTypes/JsonRpcTypes.ts'
 
-export interface ErrorResponse {
-  readonly jsonrpc: string
-  readonly id: number
-  readonly error: any
-}
-
-export const create = (message: any, error: any): ErrorResponse => {
+export const create = (
+  message: IJsonRpcRequest,
+  error: JsonRpcError,
+): IJsonRpcErrorResponse => {
   return {
     jsonrpc: JsonRpcVersion.Two,
-    id: message.id,
+    id: message.id!,
     error,
   }
 }
