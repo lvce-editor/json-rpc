@@ -106,12 +106,12 @@ test('restoreJsonRpcError - DOMException - SecurityError', () => {
     type: ErrorType.DomException,
     name: 'SecurityError',
     message:
-      "Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.",
+      "Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin \"http://localhost:3000\" from accessing a cross-origin frame.",
   })
   expect(error).toBeInstanceOf(DOMException)
   expect(error.name).toBe('SecurityError')
   expect(error.message).toBe(
-    "Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.",
+    "Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin \"http://localhost:3000\" from accessing a cross-origin frame.",
   )
 })
 
