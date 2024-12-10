@@ -3,7 +3,7 @@ import * as CallbackState from '../src/parts/CallbackState/CallbackState.ts'
 
 test('clear', () => {
   const id = 1
-  const fn = () => {}
+  const fn = (): void => {}
   CallbackState.set(id, fn)
   CallbackState.clear()
   expect(CallbackState.get(id)).toBeUndefined()
