@@ -1,19 +1,19 @@
-const state = {
-  callbacks: Object.create(null),
-}
+const callbacks = Object.create(null)
 
 export const set = (id: number, fn: any): void => {
-  state.callbacks[id] = fn
+  callbacks[id] = fn
 }
 
 export const get = (id: number): any => {
-  return state.callbacks[id]
+  return callbacks[id]
 }
 
 export const remove = (id: number): void => {
-  delete state.callbacks[id]
+  delete callbacks[id]
 }
 
 export const clear = (): void => {
-  state.callbacks = Object.create(null)
+  for (const key in callbacks) {
+    delete callbacks[key]
+  }
 }
