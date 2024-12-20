@@ -44,7 +44,8 @@ export const invokeAndTransfer = <T>(
   return invokeHelper<T>(ipc, method, params, true)
 }
 
-export { registerPromise, resolve } from '../Callback/Callback.ts'
+export { resolve } from '../Resolve/Resolve.ts'
+export { registerPromise } from '../RegisterPromise/RegisterPromise.ts'
 export { getErrorResponse } from '../GetErrorResponse/GetErrorResponse.ts'
 export { getSuccessResponse } from '../GetSuccessResponse/GetSuccessResponse.ts'
 export { handleJsonRpcMessage } from '../HandleJsonRpcMessage/HandleJsonRpcMessage.ts'

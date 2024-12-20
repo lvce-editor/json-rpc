@@ -1,4 +1,4 @@
-import * as Callback from '../Callback/Callback.ts'
+import * as Resolve from '../Resolve/Resolve.ts'
 
 const defaultPreparePrettyError = (error: unknown): unknown => {
   return error
@@ -12,7 +12,7 @@ const defaultRequiresSocket = (): boolean => {
   return false
 }
 
-const defaultResolve = Callback.resolve
+const defaultResolve = Resolve.resolve
 
 // TODO maybe remove this in v6 or v7, only accept options object to simplify the code
 export const normalizeParams = (args: any[]): any => {
