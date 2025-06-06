@@ -1,19 +1,16 @@
 import * as Character from '../Character/Character.ts'
 import * as ConstructError from '../ConstructError/ConstructError.ts'
+import * as GetCurrentStack from '../GetCurrentStack/GetCurrentStack.ts'
 import * as GetNewLineIndex from '../GetNewLineIndex/GetNewLineIndex.ts'
 import * as GetParentStack from '../GetParentStack/GetParentStack.ts'
-import * as JoinLines from '../JoinLines/JoinLines.ts'
 import { JsonRpcError } from '../JsonRpcError/JsonRpcError.ts'
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
-import * as SplitLines from '../SplitLines/SplitLines.ts'
 
 export const restoreJsonRpcError = (error: any): any => {
   if (error && error instanceof Error) {
     return error
   }
-  const currentStack = JoinLines.joinLines(
-    SplitLines.splitLines(new Error().stack || '').slice(1),
-  )
+  const currentStack = GetCurrentStack.getCurrentStack()
   if (error && error.code && error.code === JsonRpcErrorCode.MethodNotFound) {
     const restoredError = new JsonRpcError(error.message)
     const parentStack = GetParentStack.getParentStack(error)

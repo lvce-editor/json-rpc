@@ -367,7 +367,7 @@ test('restoreJsonRpcError - AssertionError', () => {
     at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:68:33)
     at async getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
     at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:27:22)
-    at Module.restoreJsonRpcError `)
+    at Module.getCurrentStack `)
 })
 
 test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
@@ -478,7 +478,7 @@ test('restoreJsonRpcError - message string', () => {
   })
   expect(error.message).toBe("'Location.reload' wasn't found")
   expect(error.stack).toMatch(`'Location.reload' wasn't found
-    at Module.restoreJsonRpcError`)
+    at Module.getCurrentStack`)
 })
 
 test('restoreJsonRpcError - TextSearchError', () => {
