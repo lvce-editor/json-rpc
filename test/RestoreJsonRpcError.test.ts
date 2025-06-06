@@ -70,6 +70,11 @@ test('restoreJsonRpcError - null', () => {
   expect(error.message).toBe('JsonRpc Error: null')
 })
 
+test('restoreJsonRpcError - weakMap', () => {
+  const error = RestoreJsonRpcError.restoreJsonRpcError(new WeakMap())
+  expect(error.message).toBe('JsonRpc Error: [object WeakMap]')
+})
+
 test('restoreJsonRpcError - empty object', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({})
   expect(error.message).toBe('JsonRpc Error: [object Object]')
