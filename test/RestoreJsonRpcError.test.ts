@@ -540,10 +540,17 @@ test('normal error', () => {
   // @ts-ignore
   expect(restoredError.codeFrame).toBeUndefined()
   expect(restoredError.stack)
-    .toBe(`    at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:10:9)
+    .toMatch(`    at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:10:9)
     at async handleJsonRpcMessage (file:///test/packages/shared-process/src/parts/HandleIpc/HandleIpc.js:12:24)
     at restoreJsonRpcError (/test/packages/main-process/src/parts/RestoreJsonRpcError/RestoreJsonRpcError.js:28:66)
     at unwrapResult (/test/packages/main-process/src/parts/UnwrapJsonRpcResult/UnwrapJsonRpcResult.js:5:47)
     at invokeAndTransfer (/test/packages/main-process/src/parts/JsonRpc/JsonRpc.js:39:38)
     at async connectToIpcNodeWorker (/test/packages/main-process/src/parts/ConnectIpc/ConnectIpc.js:20:3)`)
+  const lines = restoredError.stack.split('\n')
+  expect(lines[6]).toMatch(
+    /at Module.getCurrentStack (.*RestoreJsonRpcError.ts.*)/,
+  )
+  expect(lines[7]).toMatch(
+    /at Object.<anonymous> (.*RestoreJsonRpcError.test.ts.*)/,
+  )
 })
