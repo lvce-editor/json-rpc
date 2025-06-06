@@ -2,11 +2,11 @@ import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
 import * as GetErrorType from '../GetErrorType/GetErrorType.ts'
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
 
-const isAlreadyStack = (line: string) => {
+const isAlreadyStack = (line: string): boolean => {
   return line.trim().startsWith('at ')
 }
 
-export const getStack = (prettyError: any): string => {
+const getStack = (prettyError: any): string => {
   const stackString = prettyError.stack || ''
   const newLineIndex = stackString.indexOf('\n')
   if (
@@ -30,7 +30,7 @@ export const getErrorProperty = (error: any, prettyError: any): any => {
     code: JsonRpcErrorCode.Custom,
     message: prettyError.message,
     data: {
-      stack: prettyError.stack,
+      stack: getStack(prettyError),
       codeFrame: prettyError.codeFrame,
       type: GetErrorType.getErrorType(prettyError),
       code: prettyError.code,
