@@ -7,10 +7,13 @@ import { JsonRpcError } from '../JsonRpcError/JsonRpcError.ts'
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
 
 export const restoreJsonRpcError = (error: any): any => {
+  const currentStack = GetCurrentStack.getCurrentStack()
   if (error && error instanceof Error) {
+    if (typeof error.stack === 'string') {
+      error.stack = error.stack + Character.NewLine + currentStack
+    }
     return error
   }
-  const currentStack = GetCurrentStack.getCurrentStack()
   if (error && error.code && error.code === JsonRpcErrorCode.MethodNotFound) {
     const restoredError = new JsonRpcError(error.message)
     const parentStack = GetParentStack.getParentStack(error)
