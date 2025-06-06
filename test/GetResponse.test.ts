@@ -95,7 +95,7 @@ test('getResponse - error', async () => {
       data: {
         code: undefined,
         codeFrame: undefined,
-        stack: expect.stringContaining('TypeError: x is not a function'),
+        stack: expect.stringContaining('GetResponse.test.ts'),
         name: 'TypeError',
         type: 'TypeError',
       },
