@@ -148,7 +148,7 @@ test('error when sending message', async () => {
       message: 'x is not a function',
       data: {
         codeFrame: '',
-        stack: expect.stringMatching('TypeError: x is not a function'),
+        stack: expect.stringMatching('HandleJsonRpcMessage.test.ts'),
         type: 'TypeError',
         name: 'TypeError',
       },
@@ -184,7 +184,7 @@ test('new api - error', async () => {
       message: 'x is not a function',
       data: {
         codeFrame: undefined,
-        stack: expect.stringMatching('TypeError: x is not a function'),
+        stack: expect.stringMatching('HandleJsonRpcMessage.test.ts'),
         type: 'TypeError',
         name: 'TypeError',
       },
