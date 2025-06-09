@@ -1,5 +1,5 @@
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
-import { IJsonRpcErrorResponse } from '../JsonRpcTypes/JsonRpcTypes.ts'
+import type { IJsonRpcErrorResponse } from '../JsonRpcTypes/JsonRpcTypes.ts'
 import * as JsonRpcVersion from '../JsonRpcVersion/JsonRpcVersion.ts'
 
 export const getErrorResponseSimple = (
