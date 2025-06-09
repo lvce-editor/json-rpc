@@ -29,7 +29,7 @@ export const handleJsonRpcMessage = async (...args: any[]): Promise<void> => {
         ipc.send(response)
       } catch (error) {
         const errorResponse = GetErrorResponse.getErrorResponse(
-          message,
+          message.id,
           error,
           preparePrettyError,
           logError,
