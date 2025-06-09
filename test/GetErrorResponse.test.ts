@@ -17,7 +17,8 @@ test('getErrorResponse', () => {
   const logError = (): void => {}
   expect(
     GetErrorResponse.getErrorResponse(
-      message,
+      // @ts-ignore
+      message.id,
       error,
       preparePrettyError,
       logError,

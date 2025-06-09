@@ -1,5 +1,6 @@
 import * as GetErrorResponse from '../GetErrorResponse/GetErrorResponse.ts'
 import * as GetSuccessResponse from '../GetSuccessResponse/GetSuccessResponse.ts'
+import * as GetErrorResponseSimple from '../GetErrorResponseSimple/GetErrorResponseSimple.ts'
 
 export const getResponse = async (
   message: any,
@@ -15,8 +16,11 @@ export const getResponse = async (
       : await execute(message.method, ...message.params)
     return GetSuccessResponse.getSuccessResponse(message, result)
   } catch (error) {
+    if (ipc.canUseSimpleErrorResponse) {
+      return GetErrorResponseSimple.getErrorResponseSimple(message.id, error)
+    }
     return GetErrorResponse.getErrorResponse(
-      message,
+      message.id,
       error,
       preparePrettyError,
       logError,

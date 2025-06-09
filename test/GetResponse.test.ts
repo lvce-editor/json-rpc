@@ -105,3 +105,42 @@ test('getResponse - error', async () => {
     jsonrpc: '2.0',
   })
 })
+
+test('getResponse - error - simple jsonrpc response', async () => {
+  const message = {
+    method: 'Test.test',
+    id: 1,
+    params: [],
+  }
+  const ipc = {
+    canUseSimpleErrorResponse: true,
+  }
+  const execute = (): void => {
+    throw new TypeError(`x is not a function`)
+  }
+  const preparePrettyError = (error: Error): Error => {
+    return error
+  }
+  const logError = (): void => {}
+  const requiresSocket = (): boolean => {
+    return false
+  }
+  expect(
+    await GetResponse.getResponse(
+      message,
+      ipc,
+      execute,
+      preparePrettyError,
+      logError,
+      requiresSocket,
+    ),
+  ).toEqual({
+    error: {
+      code: -32001,
+      data: new TypeError('x is not a function'),
+      message: 'x is not a function',
+    },
+    id: 1,
+    jsonrpc: '2.0',
+  })
+})
