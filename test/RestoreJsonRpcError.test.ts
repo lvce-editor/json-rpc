@@ -367,7 +367,7 @@ test('restoreJsonRpcError - AssertionError', () => {
     at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:68:33)
     at async getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
     at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:27:22)
-    at Module.getCurrentStack `)
+    at async Module.restoreJsonRpcError `)
 })
 
 test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
