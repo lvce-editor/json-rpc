@@ -478,7 +478,7 @@ test('restoreJsonRpcError - message string', () => {
   })
   expect(error.message).toBe("'Location.reload' wasn't found")
   expect(error.stack).toMatch(`'Location.reload' wasn't found
-    at Module.getCurrentStack`)
+    at Object.<anonymous>`)
 })
 
 test('restoreJsonRpcError - TextSearchError', () => {
