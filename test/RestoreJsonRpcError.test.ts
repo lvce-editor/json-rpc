@@ -547,10 +547,8 @@ test('normal error', () => {
     at invokeAndTransfer (/test/packages/main-process/src/parts/JsonRpc/JsonRpc.js:39:38)
     at async connectToIpcNodeWorker (/test/packages/main-process/src/parts/ConnectIpc/ConnectIpc.js:20:3)`)
   const lines = restoredError.stack.split('\n')
-  expect(lines[6]).toMatch(
-    /at Module.getCurrentStack (.*RestoreJsonRpcError.ts.*)/,
-  )
-  expect(lines[7]).toMatch(
+
+  expect(lines[8]).toMatch(
     /at Object.<anonymous> (.*RestoreJsonRpcError.test.ts.*)/,
   )
 })

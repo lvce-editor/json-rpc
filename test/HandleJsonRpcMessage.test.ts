@@ -67,7 +67,7 @@ test('invoke - new api - with fallback', async () => {
     execute,
   })
   expect(ipc.send).toHaveBeenCalledTimes(1)
-  expect(ipc.send).toBeCalledWith({
+  expect(ipc.send).toHaveBeenCalledWith({
     id: 1,
     jsonrpc: '2.0',
     result: 2,
@@ -229,5 +229,5 @@ test('function call without response', async () => {
     logError,
     requiresSocket,
   )
-  expect(ipc.send).not.toBeCalled()
+  expect(ipc.send).not.toHaveBeenCalled()
 })
