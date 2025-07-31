@@ -367,7 +367,7 @@ test('restoreJsonRpcError - AssertionError', () => {
     at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:68:33)
     at async getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
     at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:27:22)
-    at async Module.restoreJsonRpcError `)
+    at Object.<anonymous> `)
 })
 
 test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
@@ -547,7 +547,7 @@ test('normal error', () => {
     at invokeAndTransfer (/test/packages/main-process/src/parts/JsonRpc/JsonRpc.js:39:38)
     at async connectToIpcNodeWorker (/test/packages/main-process/src/parts/ConnectIpc/ConnectIpc.js:20:3)`)
   const lines = restoredError.stack.split('\n')
-  expect(lines[7]).toMatch(
+  expect(lines[6]).toMatch(
     /at Object.<anonymous> (.*RestoreJsonRpcError.test.ts.*)/,
   )
 })
