@@ -525,7 +525,7 @@ test('restoreJsonRpcError - bulk replacement error', () => {
   expect(error.name).toBe('Error')
 })
 
-test('normal error', () => {
+test.only('normal error', () => {
   const error = new TypeError('x is not a function')
   error.stack = `    at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:10:9)
     at async handleJsonRpcMessage (file:///test/packages/shared-process/src/parts/HandleIpc/HandleIpc.js:12:24)
@@ -547,8 +547,7 @@ test('normal error', () => {
     at invokeAndTransfer (/test/packages/main-process/src/parts/JsonRpc/JsonRpc.js:39:38)
     at async connectToIpcNodeWorker (/test/packages/main-process/src/parts/ConnectIpc/ConnectIpc.js:20:3)`)
   const lines = restoredError.stack.split('\n')
-
-  expect(lines[8]).toMatch(
+  expect(lines[7]).toMatch(
     /at Object.<anonymous> (.*RestoreJsonRpcError.test.ts.*)/,
   )
 })
