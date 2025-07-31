@@ -92,7 +92,7 @@ test('unexpected message', async () => {
       logError,
       requiresSocket,
     ),
-  ).rejects.toThrowError(new Error('unexpected message'))
+  ).rejects.toThrow(new Error('unexpected message'))
 })
 
 test('error when sending message', async () => {
