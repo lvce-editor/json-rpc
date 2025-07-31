@@ -67,6 +67,7 @@ test('invoke - new api - with fallback', async () => {
     execute,
   })
   expect(ipc.send).toHaveBeenCalledTimes(1)
+  // @ts-ignore
   expect(ipc.send).toHaveBeenCalledWith({
     id: 1,
     jsonrpc: '2.0',
@@ -137,11 +138,13 @@ test('error when sending message', async () => {
     requiresSocket,
   )
   expect(ipc.send).toHaveBeenCalledTimes(2)
+  // @ts-ignore
   expect(ipc.send).toHaveBeenNthCalledWith(1, {
     id: 1,
     jsonrpc: '2.0',
     result: null,
   })
+  // @ts-ignore
   expect(ipc.send).toHaveBeenNthCalledWith(2, {
     error: {
       code: -32001,
@@ -178,6 +181,7 @@ test('new api - error', async () => {
     resolve,
   })
   expect(ipc.send).toHaveBeenCalledTimes(1)
+  // @ts-ignore
   expect(ipc.send).toHaveBeenNthCalledWith(1, {
     error: {
       code: -32001,
