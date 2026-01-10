@@ -49,4 +49,6 @@ export { registerPromise } from '../RegisterPromise/RegisterPromise.ts'
 export { getErrorResponse } from '../GetErrorResponse/GetErrorResponse.ts'
 export { getSuccessResponse } from '../GetSuccessResponse/GetSuccessResponse.ts'
 export { handleJsonRpcMessage } from '../HandleJsonRpcMessage/HandleJsonRpcMessage.ts'
+export { restoreJsonRpcError } from '../RestoreJsonRpcError/RestoreJsonRpcError.ts'
+export { unwrapJsonRpcResult } from '../UnwrapJsonRpcResult/UnwrapJsonRpcResult.ts'
 export { JsonRpcEvent, JsonRpcRequest }
