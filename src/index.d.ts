@@ -62,3 +62,7 @@ export const JsonRpcEvent: {
 export const JsonRequest: {
   create: (method: string, params: any) => any
 }
+
+export const unwrapJsonRpcResult: any
+
+export const restoreJsonRpcError: any
