@@ -13,6 +13,8 @@ export default [
       'no-case-declarations': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
+      '@typescript-eslint/prefer-readonly-parameter-types': 'off',
+      'no-console': 'off',
     },
   },
 ]
