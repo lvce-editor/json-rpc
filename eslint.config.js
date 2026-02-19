@@ -15,6 +15,7 @@ export default [
       '@typescript-eslint/restrict-template-expressions': 'off',
       '@typescript-eslint/prefer-readonly-parameter-types': 'off',
       'no-console': 'off',
+      'unicorn/consistent-function-scoping': 'off',
     },
   },
 ]
