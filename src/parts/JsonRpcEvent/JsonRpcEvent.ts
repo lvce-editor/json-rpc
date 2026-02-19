@@ -1,5 +1,5 @@
-import * as JsonRpcVersion from '../JsonRpcVersion/JsonRpcVersion.ts'
 import type { JsonRpcEvent } from '../JsonRpcTypes/JsonRpcTypes.ts'
+import * as JsonRpcVersion from '../JsonRpcVersion/JsonRpcVersion.ts'
 
 export const create = (
   method: string,

@@ -1,6 +1,6 @@
+import type { IJsonRpcErrorResponse } from '../JsonRpcTypes/JsonRpcTypes.ts'
 import * as GetErrorProperty from '../GetErrorProperty/GetErrorProperty.ts'
 import * as JsonRpcErrorResponse from '../JsonRpcErrorResponse/JsonRpcErrorResponse.ts'
-import type { IJsonRpcErrorResponse } from '../JsonRpcTypes/JsonRpcTypes.ts'
 
 export const getErrorResponse = (
   id: number,

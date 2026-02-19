@@ -6,13 +6,13 @@ import { normalizeParams } from './NormalizeParams.ts'
 export const handleJsonRpcMessage = async (...args: any[]): Promise<void> => {
   const options = normalizeParams(args)
   const {
-    message,
-    ipc,
     execute,
-    resolve,
-    preparePrettyError,
+    ipc,
     logError,
+    message,
+    preparePrettyError,
     requiresSocket,
+    resolve,
   } = options
 
   if ('id' in message) {

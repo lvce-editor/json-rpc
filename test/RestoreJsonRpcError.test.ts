@@ -25,8 +25,8 @@ test('restoreJsonRpcError - error', () => {
 
 test('restoreJsonRpcError - TypeError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    type: ErrorType.TypeError,
     message: 'x is not a function',
+    type: ErrorType.TypeError,
   })
   expect(error).toBeInstanceOf(TypeError)
   expect(error.message).toBe('x is not a function')
@@ -35,10 +35,10 @@ test('restoreJsonRpcError - TypeError', () => {
 test('restoreJsonRpcError - TypeError object', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     message: "Cannot set properties of undefined (setting 'id')",
+    name: 'TypeError',
     stack: `TypeError: Cannot set properties of undefined (setting 'id')
     at Module.setFocusedIndex (/packages/renderer-process/src/parts/ViewletExplorer/ViewletExplorer.js:179:20)
     at invoke`,
-    name: 'TypeError',
     type: 'TypeError',
   })
   expect(error).toBeInstanceOf(TypeError)
@@ -49,8 +49,8 @@ test('restoreJsonRpcError - TypeError object', () => {
 
 test('restoreJsonRpcError - SyntaxError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    type: ErrorType.SyntaxError,
     message: 'unexpected token',
+    type: ErrorType.SyntaxError,
   })
   expect(error).toBeInstanceOf(SyntaxError)
   expect(error.message).toBe('unexpected token')
@@ -58,8 +58,8 @@ test('restoreJsonRpcError - SyntaxError', () => {
 
 test('restoreJsonRpcError - ReferenceError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    type: ErrorType.ReferenceError,
     message: 'x is not defined',
+    type: ErrorType.ReferenceError,
   })
   expect(error).toBeInstanceOf(ReferenceError)
   expect(error.message).toBe('x is not defined')
@@ -97,9 +97,9 @@ test('restoreJsonRpcError - empty set', () => {
 
 test('restoreJsonRpcError - DOMException', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    type: ErrorType.DomException,
-    name: 'AbortError',
     message: 'The user aborted a request.',
+    name: 'AbortError',
+    type: ErrorType.DomException,
   })
   expect(error).toBeInstanceOf(DOMException)
   expect(error.name).toBe('AbortError')
@@ -108,10 +108,10 @@ test('restoreJsonRpcError - DOMException', () => {
 
 test('restoreJsonRpcError - DOMException - SecurityError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    type: ErrorType.DomException,
-    name: 'SecurityError',
     message:
       "Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin \"http://localhost:3000\" from accessing a cross-origin frame.",
+    name: 'SecurityError',
+    type: ErrorType.DomException,
   })
   expect(error).toBeInstanceOf(DOMException)
   expect(error.name).toBe('SecurityError')
@@ -172,14 +172,7 @@ test('restoreJsonRpcError - with stack - but restored error has no stack', () =>
 test('restoreJsonRpcError - with stack in data property', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     code: -32_001,
-    message:
-      'Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open \'/test/.config/app/settings.json\'',
     data: {
-      stack: `Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open '/test/.config/app/settings.json'
-    at getUserPreferences (file:///test/packages/shared-process/src/parts/Preferences/Preferences.js:23:11)
-    at async Object.getAll [as Preferences.getAll] (file:///test/packages/shared-process/src/parts/Preferences/Preferences.js:63:29)
-    at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
-    at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:32:22)`,
       codeFrame: `  21 |   } catch (error) {
   22 |     // @ts-ignore
 > 23 |     throw new VError(error, 'failed to get user preferences')
@@ -187,7 +180,14 @@ test('restoreJsonRpcError - with stack in data property', () => {
   24 |   }
   25 | }
   26 |`,
+      stack: `Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open '/test/.config/app/settings.json'
+    at getUserPreferences (file:///test/packages/shared-process/src/parts/Preferences/Preferences.js:23:11)
+    at async Object.getAll [as Preferences.getAll] (file:///test/packages/shared-process/src/parts/Preferences/Preferences.js:63:29)
+    at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
+    at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:32:22)`,
     },
+    message:
+      'Failed to get all preferences: failed to get user preferences: Failed to read file "/test/.config/app/settings.json": EACCES: permission denied, open \'/test/.config/app/settings.json\'',
   })
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe(
@@ -234,11 +234,11 @@ test('restoreJsonRpcError - VError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     message:
       'Failed to execute tab completion provider: VError: invalid tab completion result: tabCompletion must be of type object but is 42',
+    name: 'VError',
     stack: `VError: invalid tab completion result: tabCompletion must be of type object but is 42
     at executeTabCompletionProvider (test://packages/extension-host-worker/src/parts/Registry/Registry.js:77:17)
     at async Module.getResponse (test://packages/extension-host-worker/src/parts/GetResponse/GetResponse.js:7:20)
     at async MessagePort.handleMessage (test://packages/extension-host-worker/src/parts/Rpc/Rpc.js:25:24)`,
-    name: 'VError',
     type: 'VError',
   })
   expect(error).toBeInstanceOf(Error)
@@ -271,9 +271,9 @@ test('restoreJsonRpcError - with only one line in stack', () => {
 
 test('restoreJsonRpcError - method not found', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    message: 'method not found',
     code: JsonRpcErrorCode.MethodNotFound,
     data: '',
+    message: 'method not found',
   })
   expect(error).toBeInstanceOf(JsonRpcError)
   expect(error.message).toBe('method not found')
@@ -297,10 +297,10 @@ test('restoreJsonRpcError - error without stack', () => {
 test('restoreJsonRpcError - error with code', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     code: -32_001,
-    message: "FileNotFoundError: File not found '/test/settings.json'",
     data: {
       code: ErrorCodes.ENOENT,
     },
+    message: "FileNotFoundError: File not found '/test/settings.json'",
   })
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe(
@@ -315,16 +315,9 @@ test('restoreJsonRpcError - error with code', () => {
 
 test.skip('restoreJsonRpcError - object', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
-    jsonrpc: '2.0',
-    id: 7,
     error: {
       code: -32_001,
-      message: 'expected value to be of type string',
       data: {
-        stack: `    at Object.getColorThemeJson [as ExtensionHost.getColorThemeJson] (file:///test/packages/shared-process/src/parts/ExtensionManagement/ExtensionManagementColorTheme.js:32:10)
-    at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:68:33)
-    at async getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
-    at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:27:22)`,
         codeFrame: `  30 |
   31 | export const getColorThemeJson = async (colorThemeId) => {
 > 32 |   Assert.string(colorThemeId)
@@ -332,9 +325,16 @@ test.skip('restoreJsonRpcError - object', () => {
   33 |   const extensions = await ExtensionManagement.getExtensions()
   34 |   const colorThemePath = await getColorThemePath(extensions, colorThemeId)
   35 |   if (!colorThemePath) {`,
+        stack: `    at Object.getColorThemeJson [as ExtensionHost.getColorThemeJson] (file:///test/packages/shared-process/src/parts/ExtensionManagement/ExtensionManagementColorTheme.js:32:10)
+    at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:68:33)
+    at async getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
+    at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:27:22)`,
         type: 'AssertionError',
       },
+      message: 'expected value to be of type string',
     },
+    id: 7,
+    jsonrpc: '2.0',
   })
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe('JsonRpcError: [object Object]')
@@ -343,12 +343,7 @@ test.skip('restoreJsonRpcError - object', () => {
 test('restoreJsonRpcError - AssertionError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     code: -32_001,
-    message: 'expected value to be of type string',
     data: {
-      stack: `    at Object.getColorThemeJson [as ExtensionHost.getColorThemeJson] (file:///test/packages/shared-process/src/parts/ExtensionManagement/ExtensionManagementColorTheme.js:32:10)
-    at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:68:33)
-    at async getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
-    at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:27:22)`,
       codeFrame: `  30 |
   31 | export const getColorThemeJson = async (colorThemeId) => {
 > 32 |   Assert.string(colorThemeId)
@@ -356,8 +351,13 @@ test('restoreJsonRpcError - AssertionError', () => {
   33 |   const extensions = await ExtensionManagement.getExtensions()
   34 |   const colorThemePath = await getColorThemePath(extensions, colorThemeId)
   35 |   if (!colorThemePath) {`,
+      stack: `    at Object.getColorThemeJson [as ExtensionHost.getColorThemeJson] (file:///test/packages/shared-process/src/parts/ExtensionManagement/ExtensionManagementColorTheme.js:32:10)
+    at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:68:33)
+    at async getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
+    at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:27:22)`,
       type: 'AssertionError',
     },
+    message: 'expected value to be of type string',
   })
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe('expected value to be of type string')
@@ -372,6 +372,13 @@ test('restoreJsonRpcError - AssertionError', () => {
 
 test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
+    codeFrame: `  2 |
+  3 | export const getTsPosition = (textDocument, offset) => {
+> 4 |   const position = vscode.getPosition(textDocument, offset)
+    |                    ^
+  5 |   return {
+  6 |     line: position.rowIndex + 1,
+  7 |     offset: position.columnIndex + 1,`,
     message:
       'Failed to execute completion provider: ReferenceError: vscode is not defined',
     stack: `    at getTsPosition (/test/language-features-typescript/packages/node/src/parts/Position/Position.js:4:20)
@@ -393,13 +400,6 @@ test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
     at async load (http://localhost:3000/packages/renderer-worker/src/parts/ViewletManager/ViewletManager.js:326:20)
     at async openCompletion (http://localhost:3000/packages/renderer-worker/src/parts/EditorCommand/EditorCommandCompletion.js:93:3)
     at async runFn (http://localhost:3000/packages/renderer-worker/src/parts/ViewletManager/ViewletManager.js:44:22)`,
-    codeFrame: `  2 |
-  3 | export const getTsPosition = (textDocument, offset) => {
-> 4 |   const position = vscode.getPosition(textDocument, offset)
-    |                    ^
-  5 |   return {
-  6 |     line: position.rowIndex + 1,
-  7 |     offset: position.columnIndex + 1,`,
     type: ErrorType.ReferenceError,
   })
   expect(error).toBeInstanceOf(ReferenceError)
@@ -439,6 +439,7 @@ test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
 test('restoreJsonRpcError - command not found error', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     message: 'command HandleNodeMessagePort.handleNodeMessagePort not found',
+    name: 'Error',
     stack: `    at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:66:11)
     at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:10:9)
     at async handleJsonRpcMessage (file:///test/packages/shared-process/src/parts/HandleIpc/HandleIpc.js:12:24)
@@ -448,7 +449,6 @@ test('restoreJsonRpcError - command not found error', () => {
     at async connectToIpcNodeWorker (/test/packages/main-process/src/parts/ConnectIpc/ConnectIpc.js:20:3)
     at async handlePort (/test/packages/main-process/src/parts/HandleMessagePortForSharedProcess/HandleMessagePortForSharedProcess.js:48:3)
     at async handlePort (/test/packages/main-process/src/parts/HandleMessagePort/HandleMessagePort.js:44:5)`,
-    name: 'Error',
     type: 'Error',
   })
   expect(error).toBeInstanceOf(Error)
@@ -484,10 +484,8 @@ test('restoreJsonRpcError - message string', () => {
 test('restoreJsonRpcError - TextSearchError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     code: -32_001,
-    message: 'ripgrep path not found: Error: spawn /test/bin/rg ENOENT',
     data: {
-      stack: `    at TextSearch.search (/test/packages/shared-process/src/parts/TextSearch/TextSearch.js:124:11)
-    at async handleJsonRpcMessage (/test/packages/shared-process/src/parts/HandleJsonRpcMessage/HandleJsonRpcMessage.js:8:24)`,
+      code: 'E_RIP_GREP_NOT_FOUND',
       codeFrame: `  122 |   const [pipeLineResult, exitResult] = await Promise.all([pipeLinePromise, closePromise])
   123 |   if (exitResult.type === ProcessExitEventType.Error) {
 > 124 |     throw new TextSearchError(exitResult.event)
@@ -495,9 +493,11 @@ test('restoreJsonRpcError - TextSearchError', () => {
   125 |   }
   126 |   return pipeLineResult
   127 | }`,
+      stack: `    at TextSearch.search (/test/packages/shared-process/src/parts/TextSearch/TextSearch.js:124:11)
+    at async handleJsonRpcMessage (/test/packages/shared-process/src/parts/HandleJsonRpcMessage/HandleJsonRpcMessage.js:8:24)`,
       type: 'TextSearchError',
-      code: 'E_RIP_GREP_NOT_FOUND',
     },
+    message: 'ripgrep path not found: Error: spawn /test/bin/rg ENOENT',
   })
   expect(error.message).toBe(
     'ripgrep path not found: Error: spawn /test/bin/rg ENOENT',
@@ -511,10 +511,10 @@ test('restoreJsonRpcError - TextSearchError', () => {
 test('restoreJsonRpcError - bulk replacement error', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     code: -32_001,
-    message: "VError: Bulk replacement failed: File not found: './test.txt'",
     data: {
       code: 'ENOENT',
     },
+    message: "VError: Bulk replacement failed: File not found: './test.txt'",
   })
   expect(error.message).toBe(
     "VError: Bulk replacement failed: File not found: './test.txt'",

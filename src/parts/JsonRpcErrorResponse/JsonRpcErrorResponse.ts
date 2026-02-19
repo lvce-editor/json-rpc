@@ -9,8 +9,8 @@ export const create = (
   error: JsonRpcError,
 ): IJsonRpcErrorResponse => {
   return {
-    jsonrpc: JsonRpcVersion.Two,
-    id,
     error,
+    id,
+    jsonrpc: JsonRpcVersion.Two,
   }
 }

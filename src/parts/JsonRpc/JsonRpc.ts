@@ -1,7 +1,7 @@
+import type { IpcConnection } from '../JsonRpcTypes/JsonRpcTypes.ts'
 import * as JsonRpcEvent from '../JsonRpcEvent/JsonRpcEvent.ts'
 import * as JsonRpcRequest from '../JsonRpcRequest/JsonRpcRequest.ts'
 import * as UnwrapJsonRpcResult from '../UnwrapJsonRpcResult/UnwrapJsonRpcResult.ts'
-import type { IpcConnection } from '../JsonRpcTypes/JsonRpcTypes.ts'
 
 const invokeHelper = async <T>(
   ipc: IpcConnection,
@@ -51,4 +51,7 @@ export { getSuccessResponse } from '../GetSuccessResponse/GetSuccessResponse.ts'
 export { handleJsonRpcMessage } from '../HandleJsonRpcMessage/HandleJsonRpcMessage.ts'
 export { restoreJsonRpcError } from '../RestoreJsonRpcError/RestoreJsonRpcError.ts'
 export { unwrapJsonRpcResult } from '../UnwrapJsonRpcResult/UnwrapJsonRpcResult.ts'
-export { JsonRpcEvent, JsonRpcRequest }
+
+
+export * as JsonRpcEvent from '../JsonRpcEvent/JsonRpcEvent.ts'
+export * as JsonRpcRequest from '../JsonRpcRequest/JsonRpcRequest.ts'

@@ -25,7 +25,7 @@ test('getErrorResponse', () => {
     ),
   ).toEqual({
     error: {
-      code: -32601,
+      code: -32_601,
       data: expect.stringMatching(/Error: Command not found/),
       message: 'Command not found',
     },

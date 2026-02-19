@@ -19,24 +19,24 @@ export const normalizeParams = (args: any[]): any => {
   if (args.length === 1) {
     const options = args[0]
     return {
-      ipc: options.ipc,
-      message: options.message,
       execute: options.execute,
-      resolve: options.resolve || defaultResolve,
+      ipc: options.ipc,
+      logError: options.logError || defaultLogError,
+      message: options.message,
       preparePrettyError:
         options.preparePrettyError || defaultPreparePrettyError,
-      logError: options.logError || defaultLogError,
       requiresSocket: options.requiresSocket || defaultRequiresSocket,
+      resolve: options.resolve || defaultResolve,
     }
   }
 
   return {
-    ipc: args[0],
-    message: args[1],
     execute: args[2],
-    resolve: args[3],
-    preparePrettyError: args[4],
+    ipc: args[0],
     logError: args[5],
+    message: args[1],
+    preparePrettyError: args[4],
     requiresSocket: args[6],
+    resolve: args[3],
   }
 }

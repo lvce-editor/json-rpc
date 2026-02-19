@@ -1,39 +1,7 @@
-import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import * as config from '@lvce-editor/eslint-config'
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  {
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
-  {
-    ignores: [
-      'dist',
-      '.tmp',
-      '**/build/**',
-      '**/coverage/**',
-      '**/server/**',
-      '**/e2e/**',
-      'scripts',
-      'src/index.d.ts',
-      'rollup.config.js',
-      'eslint.config.js',
-      'src/index.ts',
-    ],
-  },
-  {
-    rules: {
-      '@typescript-eslint/explicit-function-return-type': 'error',
-      '@typescript-eslint/consistent-type-exports': 'error',
-      '@typescript-eslint/consistent-type-imports': 'error',
-    },
-  },
+export default [
+  ...config.default,
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
@@ -45,6 +13,15 @@ export default tseslint.config(
       'no-case-declarations': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
+      '@typescript-eslint/prefer-readonly-parameter-types': 'off',
+      'no-console': 'off',
+      'unicorn/consistent-function-scoping': 'off',
+      'unicorn/prefer-default-parameters': 'off',
+      'unicorn/error-message': 'off',
+      'jest/no-identical-title': 'off',
     },
   },
-)
+  {
+    ignores: ['src/index.d.ts'],
+  },
+]

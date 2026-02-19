@@ -11,10 +11,10 @@ export const create = <T = unknown>(
 ): JsonRpcRequestResult<T> => {
   const { id, promise } = RegisterPromise.registerPromise<T>()
   const message: IJsonRpcRequest = {
+    id,
     jsonrpc: JsonRpcVersion.Two,
     method,
     params,
-    id,
   }
   return {
     message,
