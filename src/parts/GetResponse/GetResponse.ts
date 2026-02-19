@@ -1,6 +1,6 @@
 import * as GetErrorResponse from '../GetErrorResponse/GetErrorResponse.ts'
-import * as GetSuccessResponse from '../GetSuccessResponse/GetSuccessResponse.ts'
 import * as GetErrorResponseSimple from '../GetErrorResponseSimple/GetErrorResponseSimple.ts'
+import * as GetSuccessResponse from '../GetSuccessResponse/GetSuccessResponse.ts'
 
 export const getResponse = async (
   message: any,

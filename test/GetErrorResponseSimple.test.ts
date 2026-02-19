@@ -12,13 +12,13 @@ test('getErrorResponseSimple - basic error', () => {
   const error = createError('Something went wrong')
   const result = getErrorResponseSimple(1, error)
   expect(result).toEqual({
-    jsonrpc: '2.0',
-    id: 1,
     error: {
-      code: -32001,
-      message: 'Something went wrong',
+      code: -32_001,
       data: error,
+      message: 'Something went wrong',
     },
+    id: 1,
+    jsonrpc: '2.0',
   })
 })
 
@@ -27,12 +27,12 @@ test('getErrorResponseSimple - error with no message', () => {
   // @ts-ignore
   const result = getErrorResponseSimple(2, error)
   expect(result).toEqual({
-    jsonrpc: '2.0',
-    id: 2,
     error: {
-      code: -32001,
-      message: undefined,
+      code: -32_001,
       data: error,
+      message: undefined,
     },
+    id: 2,
+    jsonrpc: '2.0',
   })
 })

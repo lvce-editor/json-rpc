@@ -1,5 +1,5 @@
-import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
 import type { IJsonRpcErrorResponse } from '../JsonRpcTypes/JsonRpcTypes.ts'
+import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
 import * as JsonRpcVersion from '../JsonRpcVersion/JsonRpcVersion.ts'
 
 export const getErrorResponseSimple = (
@@ -7,13 +7,13 @@ export const getErrorResponseSimple = (
   error: unknown,
 ): IJsonRpcErrorResponse => {
   return {
-    jsonrpc: JsonRpcVersion.Two,
-    id,
     error: {
       code: JsonRpcErrorCode.Custom,
+      data: error,
       // @ts-ignore
       message: error.message,
-      data: error,
     },
+    id,
+    jsonrpc: JsonRpcVersion.Two,
   }
 }

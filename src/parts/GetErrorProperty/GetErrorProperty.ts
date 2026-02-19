@@ -22,19 +22,19 @@ export const getErrorProperty = (error: any, prettyError: any): any => {
   if (error && error.code === ErrorCodes.E_COMMAND_NOT_FOUND) {
     return {
       code: JsonRpcErrorCode.MethodNotFound,
-      message: error.message,
       data: error.stack,
+      message: error.message,
     }
   }
   return {
     code: JsonRpcErrorCode.Custom,
-    message: prettyError.message,
     data: {
-      stack: getStack(prettyError),
-      codeFrame: prettyError.codeFrame,
-      type: GetErrorType.getErrorType(prettyError),
       code: prettyError.code,
+      codeFrame: prettyError.codeFrame,
       name: prettyError.name,
+      stack: getStack(prettyError),
+      type: GetErrorType.getErrorType(prettyError),
     },
+    message: prettyError.message,
   }
 }

@@ -3,8 +3,8 @@ import * as GetResponse from '../src/parts/GetResponse/GetResponse.js'
 
 test('getResponse - success', async () => {
   const message = {
-    method: 'Test.test',
     id: 1,
+    method: 'Test.test',
     params: [],
   }
   const ipc = {}
@@ -26,16 +26,16 @@ test('getResponse - success', async () => {
       requiresSocket,
     ),
   ).toEqual({
-    result: 0,
     id: 1,
     jsonrpc: '2.0',
+    result: 0,
   })
 })
 
 test('getResponse - success - requires ipc', async () => {
   const message = {
-    method: 'Test.test',
     id: 1,
+    method: 'Test.test',
     params: [],
   }
   const ipc = {}
@@ -57,16 +57,16 @@ test('getResponse - success - requires ipc', async () => {
       requiresSocket,
     ),
   ).toEqual({
-    result: 0,
     id: 1,
     jsonrpc: '2.0',
+    result: 0,
   })
 })
 
 test('getResponse - error', async () => {
   const message = {
-    method: 'Test.test',
     id: 1,
+    method: 'Test.test',
     params: [],
   }
   const ipc = {}
@@ -91,12 +91,12 @@ test('getResponse - error', async () => {
     ),
   ).toEqual({
     error: {
-      code: -32001,
+      code: -32_001,
       data: {
         code: undefined,
         codeFrame: undefined,
-        stack: expect.stringContaining('GetResponse.test.ts'),
         name: 'TypeError',
+        stack: expect.stringContaining('GetResponse.test.ts'),
         type: 'TypeError',
       },
       message: 'x is not a function',
@@ -108,8 +108,8 @@ test('getResponse - error', async () => {
 
 test('getResponse - error - simple jsonrpc response', async () => {
   const message = {
-    method: 'Test.test',
     id: 1,
+    method: 'Test.test',
     params: [],
   }
   const ipc = {
@@ -136,7 +136,7 @@ test('getResponse - error - simple jsonrpc response', async () => {
     ),
   ).toEqual({
     error: {
-      code: -32001,
+      code: -32_001,
       data: new TypeError('x is not a function'),
       message: 'x is not a function',
     },

@@ -1,39 +1,7 @@
-import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import * as config from '@lvce-editor/eslint-config'
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  {
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
-  {
-    ignores: [
-      'dist',
-      '.tmp',
-      '**/build/**',
-      '**/coverage/**',
-      '**/server/**',
-      '**/e2e/**',
-      'scripts',
-      'src/index.d.ts',
-      'rollup.config.js',
-      'eslint.config.js',
-      'src/index.ts',
-    ],
-  },
-  {
-    rules: {
-      '@typescript-eslint/explicit-function-return-type': 'error',
-      '@typescript-eslint/consistent-type-exports': 'error',
-      '@typescript-eslint/consistent-type-imports': 'error',
-    },
-  },
+export default [
+  ...config.default,
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
@@ -47,4 +15,4 @@ export default tseslint.config(
       '@typescript-eslint/restrict-template-expressions': 'off',
     },
   },
-)
+]

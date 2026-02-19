@@ -12,9 +12,9 @@ test('DOMException - SecurityError', () => {
     data: {
       code: 18,
       codeFrame: undefined,
+      name: 'SecurityError',
       stack: expect.stringMatching('at new DOMException'),
       type: 'DOMException',
-      name: 'SecurityError',
     },
     message:
       "Failed to read a named property 'addEventListener' from 'Window': Blocked a frame with origin \"http://localhost:3000\" from accessing a cross-origin frame.",
@@ -45,12 +45,12 @@ test('error with stack', () => {
     code: -32_001,
     data: {
       codeFrame: undefined,
+      name: 'TypeError',
       stack: `    at context.<computed> (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:554:15)
     at async getResponse (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:1903:109)
     at async handleJsonRpcMessage (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:1957:24)
     at restoreJsonRpcError (http://localhost:3000/8ebf915/packages/completion-worker/dist/completionWorkerMain.js:636:45)`,
       type: 'TypeError',
-      name: 'TypeError',
     },
     message: 'x is not a function',
   })

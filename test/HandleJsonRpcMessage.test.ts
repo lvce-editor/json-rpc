@@ -37,13 +37,13 @@ test('resolve - new api', async () => {
   const logError = jest.fn()
   const requiresSocket = jest.fn()
   await HandleJsonRpcMessage.handleJsonRpcMessage({
-    ipc,
-    message,
     execute,
-    resolve,
-    preparePrettyError,
+    ipc,
     logError,
+    message,
+    preparePrettyError,
     requiresSocket,
+    resolve,
   })
   expect(resolve).toHaveBeenCalledTimes(1)
   expect(resolve).toHaveBeenCalledWith(1, message)
@@ -62,9 +62,9 @@ test('invoke - new api - with fallback', async () => {
     return 2
   })
   await HandleJsonRpcMessage.handleJsonRpcMessage({
+    execute,
     ipc,
     message,
-    execute,
   })
   expect(ipc.send).toHaveBeenCalledTimes(1)
   // @ts-ignore
@@ -147,14 +147,14 @@ test('error when sending message', async () => {
   // @ts-ignore
   expect(ipc.send).toHaveBeenNthCalledWith(2, {
     error: {
-      code: -32001,
-      message: 'x is not a function',
+      code: -32_001,
       data: {
         codeFrame: '',
+        name: 'TypeError',
         stack: expect.stringMatching('HandleJsonRpcMessage.test.ts'),
         type: 'TypeError',
-        name: 'TypeError',
       },
+      message: 'x is not a function',
     },
     id: 1,
     jsonrpc: '2.0',
@@ -175,23 +175,23 @@ test('new api - error', async () => {
     throw new TypeError(`x is not a function`)
   })
   await HandleJsonRpcMessage.handleJsonRpcMessage({
+    execute,
     ipc,
     message,
-    execute,
     resolve,
   })
   expect(ipc.send).toHaveBeenCalledTimes(1)
   // @ts-ignore
   expect(ipc.send).toHaveBeenNthCalledWith(1, {
     error: {
-      code: -32001,
-      message: 'x is not a function',
+      code: -32_001,
       data: {
         codeFrame: undefined,
+        name: 'TypeError',
         stack: expect.stringMatching('HandleJsonRpcMessage.test.ts'),
         type: 'TypeError',
-        name: 'TypeError',
       },
+      message: 'x is not a function',
     },
     id: 1,
     jsonrpc: '2.0',

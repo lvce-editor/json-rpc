@@ -8,12 +8,12 @@ export const getErrorConstructor = (
     switch (type) {
       case ErrorType.DomException:
         return DOMException
-      case ErrorType.TypeError:
-        return TypeError
-      case ErrorType.SyntaxError:
-        return SyntaxError
       case ErrorType.ReferenceError:
         return ReferenceError
+      case ErrorType.SyntaxError:
+        return SyntaxError
+      case ErrorType.TypeError:
+        return TypeError
       default:
         return Error
     }

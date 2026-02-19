@@ -1,2 +1,2 @@
-export const MethodNotFound = -32601
-export const Custom = -32001
+export const MethodNotFound = -32_601
+export const Custom = -32_001
