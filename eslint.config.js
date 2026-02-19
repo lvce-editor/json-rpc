@@ -20,4 +20,7 @@ export default [
       'unicorn/error-message': 'off',
     },
   },
+  {
+    ignores: ['src/index.d.ts'],
+  },
 ]
