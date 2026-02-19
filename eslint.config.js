@@ -18,6 +18,7 @@ export default [
       'unicorn/consistent-function-scoping': 'off',
       'unicorn/prefer-default-parameters': 'off',
       'unicorn/error-message': 'off',
+      'jest/no-identical-title': 'off',
     },
   },
   {
