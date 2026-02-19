@@ -16,6 +16,8 @@ export default [
       '@typescript-eslint/prefer-readonly-parameter-types': 'off',
       'no-console': 'off',
       'unicorn/consistent-function-scoping': 'off',
+      'unicorn/prefer-default-parameters': 'off',
+      'unicorn/error-message': 'off',
     },
   },
 ]
