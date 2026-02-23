@@ -23,14 +23,14 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-typescript": "^7.28.5",
-    "@lvce-editor/eslint-config": "^7.2.0",
+    "@lvce-editor/eslint-config": "^7.3.0",
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "eslint": "9.39.2",
     "execa": "^9.6.1",
     "jest": "^30.2.0",
     "prettier": "^3.8.1",
-    "rollup": "^4.57.1",
+    "rollup": "^4.59.0",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
   },
