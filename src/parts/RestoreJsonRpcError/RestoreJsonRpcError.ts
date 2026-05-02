@@ -13,7 +13,10 @@ const restoreExistingError = (error: Error, currentStack: string): Error => {
   return error
 }
 
-const restoreMethodNotFoundError = (error: any, currentStack: string): Error => {
+const restoreMethodNotFoundError = (
+  error: any,
+  currentStack: string,
+): Error => {
   const restoredError = new JsonRpcError(error.message)
   const parentStack = GetParentStack.getParentStack(error)
   restoredError.stack = parentStack + Character.NewLine + currentStack
