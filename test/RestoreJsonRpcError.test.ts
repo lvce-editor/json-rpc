@@ -313,7 +313,7 @@ test('restoreJsonRpcError - error with code', () => {
   expect(error.code).toBe(ErrorCodes.ENOENT)
 })
 
-test.skip('restoreJsonRpcError - object', () => {
+test('restoreJsonRpcError - object', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     error: {
       code: -32_001,
@@ -337,7 +337,7 @@ test.skip('restoreJsonRpcError - object', () => {
     jsonrpc: '2.0',
   })
   expect(error).toBeInstanceOf(Error)
-  expect(error.message).toBe('JsonRpcError: [object Object]')
+  expect(error.message).toBe('JsonRpc Error: [object Object]')
 })
 
 test('restoreJsonRpcError - AssertionError', () => {
