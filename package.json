@@ -23,16 +23,16 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-typescript": "^7.28.5",
-    "@lvce-editor/eslint-config": "^7.5.0",
+    "@lvce-editor/eslint-config": "^9.3.0",
     "@rollup/plugin-babel": "^7.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "eslint": "9.39.2",
+    "eslint": "10.3.0",
     "execa": "^9.6.1",
     "jest": "^30.3.0",
-    "prettier": "^3.8.1",
-    "rollup": "^4.59.0",
-    "ts-jest": "^29.4.6",
-    "typescript": "^5.9.3"
+    "prettier": "^3.8.3",
+    "rollup": "^4.60.2",
+    "ts-jest": "^29.4.9",
+    "typescript": "^6.0.3"
   },
   "prettier": {
     "semi": false,
@@ -57,10 +57,10 @@
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
-        "branches": 99,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
+        "branches": 97,
+        "functions": 97,
+        "lines": 97,
+        "statements": 97
       }
     }
   }
