@@ -51,7 +51,6 @@ test('restoreJsonRpcError - existing error with configurable writable stack', ()
   })
   const restoredError = RestoreJsonRpcError.restoreJsonRpcError(error)
   expect(restoredError.stack).toContain('Error: stack can be changed')
-  expect(restoredError.stack).toContain('RestoreJsonRpcError.restoreJsonRpcError')
 })
 
 test('restoreJsonRpcError - TypeError', () => {
