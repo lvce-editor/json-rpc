@@ -31,7 +31,7 @@ test('restoreJsonRpcError - error', () => {
   expect(restoredError).toBe(error)
 })
 
-test('restoreJsonRpcError - existing error with non-configurable unwritable stack', () => {
+test('restoreJsonRpcError - existing error with non-configurable read-only stack', () => {
   const error = new Error('stack is fixed')
   Object.defineProperty(error, 'stack', {
     configurable: false,
