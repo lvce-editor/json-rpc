@@ -160,6 +160,7 @@ test('restoreJsonRpcError - with stack - but restored error has no stack', () =>
         Object.defineProperty(this, 'stack', {
           configurable: true,
           value: null,
+          writable: true,
         })
       }
     },
@@ -549,6 +550,7 @@ test('normal error', () => {
     at unwrapResult (/test/packages/main-process/src/parts/UnwrapJsonRpcResult/UnwrapJsonRpcResult.js:5:47)
     at invokeAndTransfer (/test/packages/main-process/src/parts/JsonRpc/JsonRpc.js:39:38)
     at async connectToIpcNodeWorker (/test/packages/main-process/src/parts/ConnectIpc/ConnectIpc.js:20:3)`,
+    writable: true,
   })
 
   const restoredError = RestoreJsonRpcError.restoreJsonRpcError(error)
