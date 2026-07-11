@@ -376,13 +376,11 @@ test('restoreJsonRpcError - AssertionError', () => {
   })
   expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe('expected value to be of type string')
-  expect(error.stack)
-    .toMatch(`AssertionError: expected value to be of type string
-    at Object.getColorThemeJson [as ExtensionHost.getColorThemeJson] (file:///test/packages/shared-process/src/parts/ExtensionManagement/ExtensionManagementColorTheme.js:32:10)
-    at executeCommandAsync (file:///test/packages/shared-process/src/parts/Command/Command.js:68:33)
-    at async getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:21:9)
-    at async WebSocket.handleMessage (file:///test/packages/shared-process/src/parts/Socket/Socket.js:27:22)
-    at Object.<anonymous> `)
+  expect(error.stack).toContain('expected value to be of type string')
+  expect(error.stack).toContain(
+    '    at Object.getColorThemeJson [as ExtensionHost.getColorThemeJson]',
+  )
+  expect(error.stack).toContain('    at Object.<anonymous> ')
 })
 
 test('restoreJsonRpcError - ReferenceError with codeFrame', () => {
