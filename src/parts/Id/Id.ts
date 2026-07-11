@@ -1,5 +1,6 @@
-let id = 0
-
-export const create = (): number => {
-  return ++id
-}
+export const create = (() => {
+  let id = 0
+  return (): number => {
+    return ++id
+  }
+})()

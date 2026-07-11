@@ -7,8 +7,16 @@ import * as RestoreJsonRpcError from '../src/parts/RestoreJsonRpcError/RestoreJs
 
 const originalError = Error
 
+const setGlobalError = (ErrorConstructor: typeof Error): void => {
+  Object.defineProperty(globalThis, 'Error', {
+    configurable: true,
+    value: ErrorConstructor,
+    writable: true,
+  })
+}
+
 beforeEach(() => {
-  globalThis.Error = originalError
+  setGlobalError(originalError)
 })
 
 test('restoreJsonRpcError - string', () => {
@@ -142,14 +150,20 @@ test('restoreJsonRpcError - with stack', () => {
 
 test('restoreJsonRpcError - with stack - but restored error has no stack', () => {
   // @ts-ignore
-  globalThis.Error = class {
-    constructor(message: string) {
-      // @ts-ignore
-      this.message = message
-      // @ts-ignore
-      this.stack = null
-    }
-  }
+  setGlobalError(
+    // @ts-ignore
+    class {
+      constructor(message: string) {
+        // @ts-ignore
+        this.message = message
+        // @ts-ignore
+        Object.defineProperty(this, 'stack', {
+          configurable: true,
+          value: null,
+        })
+      }
+    },
+  )
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     message:
       'Test failed: sample.tab-completion-provider: expected selector .Viewlet.Editor to have text "test3" but was "test"',
@@ -166,7 +180,7 @@ test('restoreJsonRpcError - with stack - but restored error has no stack', () =>
     at Object.checkSingleElementCondition [as TestFrameWork.checkSingleElementCondition] (http://localhost/packages/renderer-process/src/parts/TestFrameWork/TestFrameWork.js:122:9)
     at async Worker.handleMessageFromRendererWorker (http://localhost/packages/renderer-process/src/parts/RendererWorker/RendererWorker.js:46:24)`,
   )
-  globalThis.Error = originalError
+  setGlobalError(originalError)
 })
 
 test('restoreJsonRpcError - with stack in data property', () => {
@@ -340,7 +354,7 @@ test('restoreJsonRpcError - object', () => {
   expect(error.message).toBe('JsonRpc Error: [object Object]')
 })
 
-test.skip('restoreJsonRpcError - AssertionError', () => {
+test('restoreJsonRpcError - AssertionError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     code: -32_001,
     data: {
@@ -527,12 +541,15 @@ test('restoreJsonRpcError - bulk replacement error', () => {
 
 test('normal error', () => {
   const error = new TypeError('x is not a function')
-  error.stack = `    at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:10:9)
+  Object.defineProperty(error, 'stack', {
+    configurable: true,
+    value: `    at async Module.getResponse (file:///test/packages/shared-process/src/parts/GetResponse/GetResponse.js:10:9)
     at async handleJsonRpcMessage (file:///test/packages/shared-process/src/parts/HandleIpc/HandleIpc.js:12:24)
     at restoreJsonRpcError (/test/packages/main-process/src/parts/RestoreJsonRpcError/RestoreJsonRpcError.js:28:66)
     at unwrapResult (/test/packages/main-process/src/parts/UnwrapJsonRpcResult/UnwrapJsonRpcResult.js:5:47)
     at invokeAndTransfer (/test/packages/main-process/src/parts/JsonRpc/JsonRpc.js:39:38)
-    at async connectToIpcNodeWorker (/test/packages/main-process/src/parts/ConnectIpc/ConnectIpc.js:20:3)`
+    at async connectToIpcNodeWorker (/test/packages/main-process/src/parts/ConnectIpc/ConnectIpc.js:20:3)`,
+  })
 
   const restoredError = RestoreJsonRpcError.restoreJsonRpcError(error)
   expect(restoredError).toBeInstanceOf(Error)
