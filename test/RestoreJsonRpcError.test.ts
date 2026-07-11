@@ -31,6 +31,29 @@ test('restoreJsonRpcError - error', () => {
   expect(restoredError).toBe(error)
 })
 
+test('restoreJsonRpcError - existing error with non-configurable unwritable stack', () => {
+  const error = new Error('stack is fixed')
+  Object.defineProperty(error, 'stack', {
+    configurable: false,
+    value: 'Error: stack is fixed',
+    writable: false,
+  })
+  const restoredError = RestoreJsonRpcError.restoreJsonRpcError(error)
+  expect(restoredError.stack).toBe('Error: stack is fixed')
+})
+
+test('restoreJsonRpcError - existing error with configurable writable stack', () => {
+  const error = new Error('stack can be changed')
+  Object.defineProperty(error, 'stack', {
+    configurable: false,
+    value: 'Error: stack can be changed',
+    writable: true,
+  })
+  const restoredError = RestoreJsonRpcError.restoreJsonRpcError(error)
+  expect(restoredError.stack).toContain('Error: stack can be changed')
+  expect(restoredError.stack).toContain('RestoreJsonRpcError.restoreJsonRpcError')
+})
+
 test('restoreJsonRpcError - TypeError', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({
     message: 'x is not a function',

@@ -59,9 +59,6 @@ const restoreStackFromData = (
 }
 
 const applyDataProperties = (restoredError: any, error: any): void => {
-  if (!error.data) {
-    return
-  }
   restoreStackFromData(restoredError, error, GetCurrentStack.getCurrentStack())
   if (error.data.codeFrame) {
     // @ts-ignore
