@@ -39,11 +39,16 @@ test('error without type property', () => {
 })
 
 test('error with stack', () => {
-  const error = new TypeError('x is not a function')
-  error.stack = `TypeError: x is not a function\n    at context.<computed> (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:554:15)\n    at async getResponse (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:1903:109)\n    at async handleJsonRpcMessage (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:1957:24)\n    at restoreJsonRpcError (http://localhost:3000/8ebf915/packages/completion-worker/dist/completionWorkerMain.js:636:45)`
+  const error = {
+    message: 'x is not a function',
+    name: 'TypeError',
+    stack: `TypeError: x is not a function\n    at context.<computed> (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:554:15)\n    at async getResponse (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:1903:109)\n    at async handleJsonRpcMessage (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:1957:24)\n    at restoreJsonRpcError (http://localhost:3000/8ebf915/packages/completion-worker/dist/completionWorkerMain.js:636:45)`,
+    type: 'TypeError',
+  } as TypeError
   expect(GetErrorProperty.getErrorProperty(error, error)).toEqual({
     code: -32_001,
     data: {
+      code: undefined,
       codeFrame: undefined,
       name: 'TypeError',
       stack: `    at context.<computed> (http://localhost:3000/8ebf915/packages/extension-host-worker/dist/extensionHostWorkerMain.js:554:15)

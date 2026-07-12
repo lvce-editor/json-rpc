@@ -6,9 +6,27 @@ import * as GetParentStack from '../GetParentStack/GetParentStack.ts'
 import { JsonRpcError } from '../JsonRpcError/JsonRpcError.ts'
 import * as JsonRpcErrorCode from '../JsonRpcErrorCode/JsonRpcErrorCode.ts'
 
+const setStack = (error: Error, stack: string): void => {
+  const descriptor = Object.getOwnPropertyDescriptor(error, 'stack')
+  if (descriptor) {
+    if (!descriptor.configurable && !descriptor.writable) {
+      return
+    }
+    if (!descriptor.configurable && descriptor.writable) {
+      error.stack = stack
+      return
+    }
+  }
+  Object.defineProperty(error, 'stack', {
+    configurable: true,
+    value: stack,
+    writable: true,
+  })
+}
+
 const restoreExistingError = (error: Error, currentStack: string): Error => {
   if (typeof error.stack === 'string') {
-    error.stack = error.stack + Character.NewLine + currentStack
+    setStack(error, `${error.stack}${Character.NewLine}${currentStack}`)
   }
   return error
 }
@@ -19,7 +37,7 @@ const restoreMethodNotFoundError = (
 ): Error => {
   const restoredError = new JsonRpcError(error.message)
   const parentStack = GetParentStack.getParentStack(error)
-  restoredError.stack = parentStack + Character.NewLine + currentStack
+  setStack(restoredError, `${parentStack}${Character.NewLine}${currentStack}`)
   return restoredError
 }
 
@@ -29,25 +47,18 @@ const restoreStackFromData = (
   currentStack: string,
 ): void => {
   if (error.data.stack && error.data.type && error.message) {
-    restoredError.stack =
-      error.data.type +
-      ': ' +
-      error.message +
-      Character.NewLine +
-      error.data.stack +
-      Character.NewLine +
-      currentStack
+    setStack(
+      restoredError,
+      `${error.data.type}: ${error.message}${Character.NewLine}${error.data.stack}${Character.NewLine}${currentStack}`,
+    )
     return
   }
   if (error.data.stack) {
-    restoredError.stack = error.data.stack
+    setStack(restoredError, error.data.stack)
   }
 }
 
 const applyDataProperties = (restoredError: any, error: any): void => {
-  if (!error.data) {
-    return
-  }
   restoreStackFromData(restoredError, error, GetCurrentStack.getCurrentStack())
   if (error.data.codeFrame) {
     // @ts-ignore
@@ -69,7 +80,7 @@ const applyDirectProperties = (restoredError: any, error: any): void => {
     const indexNewLine = GetNewLineIndex.getNewLineIndex(lowerStack)
     const parentStack = GetParentStack.getParentStack(error)
     // @ts-ignore
-    restoredError.stack = parentStack + lowerStack.slice(indexNewLine)
+    setStack(restoredError, `${parentStack}${lowerStack.slice(indexNewLine)}`)
   }
   if (error.codeFrame) {
     // @ts-ignore

@@ -15,7 +15,10 @@ export const constructError = (
   if (ErrorConstructor === Error) {
     const error = new Error(message)
     if (name && name !== 'VError') {
-      error.name = name
+      Object.defineProperty(error, 'name', {
+        configurable: true,
+        value: name,
+      })
     }
     return error
   }
