@@ -21,7 +21,3 @@ const ipc = {
 
 await JsonRpc.invoke(ipc, 'add', 1, 2) // returns 3
 ```
-
-## Gitpod
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/lvce-editor/json-rpc)
