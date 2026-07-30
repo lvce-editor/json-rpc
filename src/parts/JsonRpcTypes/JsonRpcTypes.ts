@@ -5,12 +5,6 @@ export interface IJsonRpcRequest<TParams = unknown> {
   readonly params?: TParams
 }
 
-export interface IJsonRpcSuccessResponse<TResult = unknown> {
-  readonly id: number | string | null
-  readonly jsonrpc: '2.0'
-  readonly result: TResult
-}
-
 export interface IJsonRpcErrorResponse {
   readonly error: JsonRpcError
   readonly id: number | string | null
@@ -29,7 +23,7 @@ export interface JsonRpcEvent<TParams = unknown> {
   readonly params: TParams
 }
 
-export interface Transport {
+interface Transport {
   send(message: unknown): void
   sendAndTransfer?(message: unknown): void
 }
@@ -42,12 +36,4 @@ export interface IpcConnection extends Transport {
 export interface JsonRpcRequestResult<T = unknown> {
   message: IJsonRpcRequest
   promise: Promise<T>
-}
-
-export interface ErrorResponseData {
-  readonly code?: number | string
-  readonly codeFrame?: string
-  readonly name?: string
-  readonly stack?: string
-  readonly type?: string
 }
