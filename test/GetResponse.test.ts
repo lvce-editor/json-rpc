@@ -137,7 +137,11 @@ test('getResponse - error - simple jsonrpc response', async () => {
   ).toEqual({
     error: {
       code: -32_001,
-      data: new TypeError('x is not a function'),
+      data: {
+        code: undefined,
+        stack: expect.stringContaining('TypeError: x is not a function'),
+        type: 'TypeError',
+      },
       message: 'x is not a function',
     },
     id: 1,

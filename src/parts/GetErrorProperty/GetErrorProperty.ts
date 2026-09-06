@@ -29,7 +29,7 @@ export const getErrorProperty = (error: any, prettyError: any): any => {
   return {
     code: JsonRpcErrorCode.Custom,
     data: {
-      code: prettyError.code,
+      code: prettyError.code ?? error?.code,
       codeFrame: prettyError.codeFrame,
       name: prettyError.name,
       stack: getStack(prettyError),

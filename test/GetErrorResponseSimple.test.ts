@@ -14,7 +14,7 @@ test('getErrorResponseSimple - basic error', () => {
   expect(result).toEqual({
     error: {
       code: -32_001,
-      data: error,
+      data: { code: 'E_CUSTOM', stack: error.stack, type: 'Error' },
       message: 'Something went wrong',
     },
     id: 1,

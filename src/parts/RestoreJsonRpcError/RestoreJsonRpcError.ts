@@ -36,6 +36,7 @@ const restoreMethodNotFoundError = (
   currentStack: string,
 ): Error => {
   const restoredError = new JsonRpcError(error.message)
+  Object.assign(restoredError, { code: error.code })
   const parentStack = GetParentStack.getParentStack(error)
   setStack(restoredError, `${parentStack}${Character.NewLine}${currentStack}`)
   return restoredError
@@ -64,9 +65,16 @@ const applyDataProperties = (restoredError: any, error: any): void => {
     // @ts-ignore
     restoredError.codeFrame = error.data.codeFrame
   }
-  if (error.data.code) {
+  if (
+    typeof error.data.code === 'string' ||
+    typeof error.data.code === 'number'
+  ) {
     // @ts-ignore
-    restoredError.code = error.data.code
+    Object.defineProperty(restoredError, 'code', {
+      configurable: true,
+      value: error.data.code,
+      writable: true,
+    })
   }
   if (error.data.type) {
     // @ts-ignore
@@ -94,6 +102,13 @@ const restoreMessageError = (error: any, _currentStack: string): Error => {
     error.type,
     error.name,
   )
+  if (typeof error.code === 'string' || typeof error.code === 'number') {
+    Object.defineProperty(restoredError, 'code', {
+      configurable: true,
+      value: error.code,
+      writable: true,
+    })
+  }
   if (error.data) {
     applyDataProperties(restoredError, error)
   } else {
