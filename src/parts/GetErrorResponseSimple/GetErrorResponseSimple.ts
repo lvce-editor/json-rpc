@@ -9,7 +9,15 @@ export const getErrorResponseSimple = (
   return {
     error: {
       code: JsonRpcErrorCode.Custom,
-      data: error,
+      data:
+        error instanceof Error
+          ? {
+              ...error,
+              code: 'code' in error ? error.code : undefined,
+              stack: error.stack,
+              type: error.name,
+            }
+          : error,
       // @ts-ignore
       message: error.message,
     },
