@@ -60,3 +60,14 @@ test('error with stack', () => {
     message: 'x is not a function',
   })
 })
+
+test('error name is preserved when the prepared error does not expose one', () => {
+  const error = new Error('setting has an invalid type')
+  Object.defineProperty(error, 'name', { value: 'TypeError' })
+  const result = GetErrorProperty.getErrorProperty(error, {
+    message: error.message,
+    stack: error.stack,
+    type: 'TypeError',
+  })
+  expect(result.data.name).toBe('TypeError')
+})
