@@ -99,7 +99,7 @@ const applyDirectProperties = (restoredError: any, error: any): void => {
 const restoreMessageError = (error: any, _currentStack: string): Error => {
   const restoredError = ConstructError.constructError(
     error.message,
-    error.type,
+    error.type || error.data?.type,
     error.name,
   )
   if (typeof error.code === 'string' || typeof error.code === 'number') {

@@ -31,7 +31,7 @@ export const getErrorProperty = (error: any, prettyError: any): any => {
     data: {
       code: prettyError.code ?? error?.code,
       codeFrame: prettyError.codeFrame,
-      name: prettyError.name,
+      name: prettyError.name ?? error?.name,
       stack: getStack(prettyError),
       type: GetErrorType.getErrorType(prettyError),
     },
