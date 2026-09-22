@@ -107,7 +107,7 @@ test('restoreJsonRpcError - weakMap', () => {
 
 test('restoreJsonRpcError - empty object', () => {
   const error = RestoreJsonRpcError.restoreJsonRpcError({})
-  expect(error.message).toBe('JsonRpc Error: [object Object]')
+  expect(error.message).toBe('JsonRpc Error: {}')
 })
 
 test('restoreJsonRpcError - empty array', () => {
@@ -374,6 +374,33 @@ test('restoreJsonRpcError - object', () => {
     jsonrpc: '2.0',
   })
   expect(error).toBeInstanceOf(Error)
+  expect(error.message).toBe('expected value to be of type string')
+})
+
+test('restoreJsonRpcError - object without message', () => {
+  const error = RestoreJsonRpcError.restoreJsonRpcError({
+    code: -32_001,
+    data: {
+      status: 404,
+      url: 'https://example.com/config.json',
+    },
+  })
+  expect(error.message).toBe('JsonRpc Error: {"status":404,"url":"https://example.com/config.json"}')
+})
+
+test('restoreJsonRpcError - nested data message', () => {
+  const error = RestoreJsonRpcError.restoreJsonRpcError({
+    data: {
+      message: 'config.json was not found',
+    },
+  })
+  expect(error.message).toBe('JsonRpc Error: config.json was not found')
+})
+
+test('restoreJsonRpcError - circular object', () => {
+  const value: any = {}
+  value.self = value
+  const error = RestoreJsonRpcError.restoreJsonRpcError(value)
   expect(error.message).toBe('JsonRpc Error: [object Object]')
 })
 

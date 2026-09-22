@@ -229,7 +229,7 @@ test('invoke - error - empty object', async () => {
   const error = await getError(
     JsonRpc.invoke(ipc, 'Test.execute', 'test message'),
   )
-  expect(error.message).toBe('JsonRpc Error: [object Object]')
+  expect(error.message).toBe('JsonRpc Error: {}')
   expect(ipc.send).toHaveBeenCalledTimes(1)
   expect(ipc.send).toHaveBeenCalledWith({
     id: expect.any(Number),
