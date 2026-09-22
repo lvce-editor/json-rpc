@@ -117,6 +117,24 @@ const restoreMessageError = (error: any, _currentStack: string): Error => {
   return restoredError
 }
 
+const getFallbackMessage = (error: any): string => {
+  if (error && typeof error.message === 'string' && error.message) {
+    return error.message
+  }
+  if (error && error.data) {
+    return getFallbackMessage(error.data)
+  }
+  const stringified = String(error)
+  if (stringified !== '[object Object]') {
+    return stringified
+  }
+  try {
+    return JSON.stringify(error)
+  } catch {
+    return stringified
+  }
+}
+
 export const restoreJsonRpcError = (error: any): any => {
   const currentStack = GetCurrentStack.getCurrentStack()
   if (error && error instanceof Error) {
@@ -125,11 +143,11 @@ export const restoreJsonRpcError = (error: any): any => {
   if (error && error.code && error.code === JsonRpcErrorCode.MethodNotFound) {
     return restoreMethodNotFoundError(error, currentStack)
   }
+  if (error && error.error) {
+    return restoreJsonRpcError(error.error)
+  }
   if (error && error.message) {
     return restoreMessageError(error, currentStack)
   }
-  if (typeof error === 'string') {
-    return new Error(`JsonRpc Error: ${error}`)
-  }
-  return new Error(`JsonRpc Error: ${error}`)
+  return new Error(`JsonRpc Error: ${getFallbackMessage(error)}`)
 }
