@@ -1,5 +1,6 @@
 import { beforeEach, expect, test } from '@jest/globals'
 import * as ErrorCodes from '../src/parts/ErrorCodes/ErrorCodes.js'
+import * as GetErrorProperty from '../src/parts/GetErrorProperty/GetErrorProperty.ts'
 import * as ErrorType from '../src/parts/ErrorType/ErrorType.js'
 import { JsonRpcError } from '../src/parts/JsonRpcError/JsonRpcError.ts'
 import * as JsonRpcErrorCode from '../src/parts/JsonRpcErrorCode/JsonRpcErrorCode.js'
@@ -385,7 +386,9 @@ test('restoreJsonRpcError - object without message', () => {
       url: 'https://example.com/config.json',
     },
   })
-  expect(error.message).toBe('JsonRpc Error: {"status":404,"url":"https://example.com/config.json"}')
+  expect(error.message).toBe(
+    'JsonRpc Error: {"status":404,"url":"https://example.com/config.json"}',
+  )
 })
 
 test('restoreJsonRpcError - nested data message', () => {
@@ -616,4 +619,22 @@ test('normal error', () => {
   expect(lines[6]).toMatch(
     /at Object.<anonymous> (.*RestoreJsonRpcError.test.ts.*)/,
   )
+})
+
+test('preserves a custom error name across repeated JSON RPC round trips', () => {
+  let error = new Error('Cannot open binary file')
+  Object.defineProperty(error, 'name', { value: 'BinaryFileError' })
+  for (let boundary = 0; boundary < 3; boundary++) {
+    const payload = JSON.parse(
+      JSON.stringify(GetErrorProperty.getErrorProperty(error, error)),
+    )
+    expect(payload.data).toMatchObject({
+      name: 'BinaryFileError',
+      type: 'Error',
+    })
+    error = RestoreJsonRpcError.restoreJsonRpcError(payload)
+    expect(error).toBeInstanceOf(Error)
+    expect(error.name).toBe('BinaryFileError')
+    expect(error.message).toBe('Cannot open binary file')
+  }
 })
