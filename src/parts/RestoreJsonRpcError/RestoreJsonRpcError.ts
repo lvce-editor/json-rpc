@@ -76,9 +76,12 @@ const applyDataProperties = (restoredError: any, error: any): void => {
       writable: true,
     })
   }
-  if (error.data.type) {
-    // @ts-ignore
-    restoredError.name = error.data.type
+  const name = error.data.name || error.data.type
+  if (name) {
+    Object.defineProperty(restoredError, 'name', {
+      configurable: true,
+      value: name,
+    })
   }
 }
 
@@ -100,7 +103,7 @@ const restoreMessageError = (error: any, _currentStack: string): Error => {
   const restoredError = ConstructError.constructError(
     error.message,
     error.type || error.data?.type,
-    error.name,
+    error.name || error.data?.name,
   )
   if (typeof error.code === 'string' || typeof error.code === 'number') {
     Object.defineProperty(restoredError, 'code', {
