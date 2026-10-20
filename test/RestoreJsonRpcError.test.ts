@@ -1,7 +1,7 @@
 import { beforeEach, expect, test } from '@jest/globals'
 import * as ErrorCodes from '../src/parts/ErrorCodes/ErrorCodes.js'
-import * as GetErrorProperty from '../src/parts/GetErrorProperty/GetErrorProperty.ts'
 import * as ErrorType from '../src/parts/ErrorType/ErrorType.js'
+import * as GetErrorProperty from '../src/parts/GetErrorProperty/GetErrorProperty.ts'
 import { JsonRpcError } from '../src/parts/JsonRpcError/JsonRpcError.ts'
 import * as JsonRpcErrorCode from '../src/parts/JsonRpcErrorCode/JsonRpcErrorCode.js'
 import * as RestoreJsonRpcError from '../src/parts/RestoreJsonRpcError/RestoreJsonRpcError.js'
@@ -625,6 +625,8 @@ test('preserves a custom error name across repeated JSON RPC round trips', () =>
   let error = new Error('Cannot open binary file')
   Object.defineProperty(error, 'name', { value: 'BinaryFileError' })
   for (let boundary = 0; boundary < 3; boundary++) {
+    // JSON wire encoding must preserve the name after each boundary.
+    // eslint-disable-next-line unicorn/prefer-structured-clone
     const payload = JSON.parse(
       JSON.stringify(GetErrorProperty.getErrorProperty(error, error)),
     )
