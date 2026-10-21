@@ -15,6 +15,13 @@ export const handleJsonRpcMessage = async (...args: any[]): Promise<void> => {
     resolve,
   } = options
 
+  if (message === 'ready') {
+    return
+  }
+  if (!message || typeof message !== 'object') {
+    throw new JsonRpcError('unexpected message')
+  }
+
   if ('id' in message) {
     if ('method' in message) {
       const response = await GetResponse.getResponse(
