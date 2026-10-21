@@ -96,6 +96,36 @@ test('unexpected message', async () => {
   ).rejects.toThrow(new Error('unexpected message'))
 })
 
+test('ignores the ready handshake message', async () => {
+  const execute = jest.fn()
+  const ipc = { send: jest.fn() }
+  const resolve = jest.fn()
+
+  await expect(
+    HandleJsonRpcMessage.handleJsonRpcMessage({
+      execute,
+      ipc,
+      message: 'ready',
+      resolve,
+    }),
+  ).resolves.toBeUndefined()
+
+  expect(execute).not.toHaveBeenCalled()
+  expect(ipc.send).not.toHaveBeenCalled()
+  expect(resolve).not.toHaveBeenCalled()
+})
+
+test('rejects other primitive messages', async () => {
+  await expect(
+    HandleJsonRpcMessage.handleJsonRpcMessage({
+      execute: jest.fn(),
+      ipc: {},
+      message: 'unexpected',
+      resolve: jest.fn(),
+    }),
+  ).rejects.toThrow(new Error('unexpected message'))
+})
+
 test('error when sending message', async () => {
   let i = 0
   const ipc = {
